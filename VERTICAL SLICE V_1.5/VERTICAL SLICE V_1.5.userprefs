@@ -1,0 +1,19 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerMovement.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Turret\TurretNavigationMesh.cs" Line="42" Column="62" />
+      <File FileName="Assets\Scripts\Turret\TurretStateMachine.cs" Line="1" Column="2" />
+      <File FileName="Assets\Scripts\Humanoid\HumanoidNavigationMesh.cs" Line="77" Column="4" />
+      <File FileName="Assets\Scripts\Humanoid\HumanoidHealth.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Enumerations\BehaviourType.cs" Line="6" Column="8" />
+      <File FileName="Assets\Scripts\Humanoid\HumanoidStateMachine.cs" Line="94" Column="70" />
+      <File FileName="Assets\Scripts\Humanoid\HumanoidManager.cs" Line="74" Column="21" />
+      <File FileName="Assets\Scripts\Player\PlayerMovement.cs" Line="35" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

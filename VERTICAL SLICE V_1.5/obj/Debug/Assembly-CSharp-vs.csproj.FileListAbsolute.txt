@@ -1,0 +1,17 @@
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\obj\Debug\Assembly-CSharp.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.0\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\Temp\bin\Debug\Assembly-UnityScript-firstpass.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\obj\Debug\Assembly-CSharp.dll
+C:\Users\Fabiano\Desktop\VERTICAL SLICE V_1.3\obj\Debug\Assembly-CSharp.pdb

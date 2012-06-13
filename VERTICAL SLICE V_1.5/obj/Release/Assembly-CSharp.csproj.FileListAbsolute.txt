@@ -1,0 +1,8 @@
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Release\Assembly-CSharp.dll
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Release\Assembly-CSharp.pdb
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Release\UnityEditor.dll
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Release\UnityEngine.dll
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\Temp\bin\Release\nunit.framework.dll
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\obj\Release\ResolveAssemblyReference.cache
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\obj\Release\Assembly-CSharp.dll
+C:\Users\joao-kucera\Desktop\VERTICAL SLICE V_1.0\obj\Release\Assembly-CSharp.pdb

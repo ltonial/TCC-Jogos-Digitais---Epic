@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{B17D45C2-E3A2-779D-5466-42A942608F05}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_5_0;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_WIN;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Scripts\Camera\CameraAction.cs" />
+     <Compile Include="Assets\Scripts\Camera\CameraScript.cs" />
+     <Compile Include="Assets\Scripts\Enemies\RagdollBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\BehaviourType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\ComboType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\ComputerType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\DirectionType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\FiniteStateMachineType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\HumanoidType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\StatePlayerType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\StateType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\TankType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\TurnType.cs" />
+     <Compile Include="Assets\Scripts\Enumerations\WaypointType.cs" />
+     <Compile Include="Assets\Scripts\Humanoid\HumanoidGun.cs" />
+     <Compile Include="Assets\Scripts\Humanoid\HumanoidHealth.cs" />
+     <Compile Include="Assets\Scripts\Humanoid\HumanoidManager.cs" />
+     <Compile Include="Assets\Scripts\Humanoid\HumanoidNavigationMesh.cs" />
+     <Compile Include="Assets\Scripts\Humanoid\HumanoidStateMachine.cs" />
+     <Compile Include="Assets\Scripts\Items\Computer.cs" />
+     <Compile Include="Assets\Scripts\Items\EnergyItem.cs" />
+     <Compile Include="Assets\Scripts\Items\Item.cs" />
+     <Compile Include="Assets\Scripts\Items\ItemIdentificator.cs" />
+     <Compile Include="Assets\Scripts\Items\ItemIdentificatorManager.cs" />
+     <Compile Include="Assets\Scripts\Items\SmokeTurretDeath.cs" />
+     <Compile Include="Assets\Scripts\Items\Waypoint.cs" />
+     <Compile Include="Assets\Scripts\Level\Challenge1.cs" />
+     <Compile Include="Assets\Scripts\Level\Challenge2.cs" />
+     <Compile Include="Assets\Scripts\Level\LabyrinthManager.cs" />
+     <Compile Include="Assets\Scripts\Level\LiftMovement.cs" />
+     <Compile Include="Assets\Scripts\Menu\AutoFade.cs" />
+     <Compile Include="Assets\Scripts\Menu\BackItem.cs" />
+     <Compile Include="Assets\Scripts\Menu\ControlsItem.cs" />
+     <Compile Include="Assets\Scripts\Menu\CreditsItem.cs" />
+     <Compile Include="Assets\Scripts\Menu\ExitItem.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuItem.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuManager.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuPause.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuStart.cs" />
+     <Compile Include="Assets\Scripts\Menu\PlayItem.cs" />
+     <Compile Include="Assets\Scripts\Player\AimScript.cs" />
+     <Compile Include="Assets\Scripts\Player\CombatCombo.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerCombat.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\TankPlayer.cs" />
+     <Compile Include="Assets\Scripts\Player\WeaponPlayer.cs" />
+     <Compile Include="Assets\Scripts\Shots\BulletGun.cs" />
+     <Compile Include="Assets\Scripts\Shots\BulletScript.cs" />
+     <Compile Include="Assets\Scripts\Turret\TurretHealth.cs" />
+     <Compile Include="Assets\Scripts\Turret\TurretManager.cs" />
+     <Compile Include="Assets\Scripts\Turret\TurretNavigationMesh.cs" />
+     <Compile Include="Assets\Scripts\Turret\TurretStateMachine.cs" />
+     <Compile Include="Assets\Scripts\Turret\TurretTracer.cs" />
+     <Compile Include="Assets\Scripts\Turret\WaypointSystem.cs" />
+     <Compile Include="Assets\Scripts\iTween\iTween.cs" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
