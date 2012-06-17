@@ -95,7 +95,7 @@ public class HumanoidNavigationMesh
 		if (this._behaviour != newBehaviour) 
 		{
 			this._behaviour = newBehaviour;
-			Debug.Log ("BEHAVIOUR: " + this._behaviour);
+			//Debug.Log ("BEHAVIOUR: " + this._behaviour);
 			
 			switch (this._behaviour) 
 			{

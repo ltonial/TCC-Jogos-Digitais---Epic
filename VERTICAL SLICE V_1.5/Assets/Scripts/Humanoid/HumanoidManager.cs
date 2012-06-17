@@ -37,6 +37,10 @@ public class HumanoidManager : MonoBehaviour
 	/// The _item energy.
 	/// </summary>
 	private GameObject _energyItem;
+	/// <summary>
+	/// The _computer.
+	/// </summary>
+	private ComputerManager _terminalCreation;
 	#endregion
     #region Properties
     public HumanoidHealth Health { get { return this._health; } }
@@ -63,6 +67,8 @@ public class HumanoidManager : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
+		if (!MenuPause.Paused)
+        {
         this._health.Update();
         if (this._health.IsDead)
         {
@@ -76,6 +82,17 @@ public class HumanoidManager : MonoBehaviour
 			Destroy(gameObject);
         }
 		if (this._fsm != null) this._fsm.Update(Time.deltaTime, this._health.CurrentHealth);
+		}
 	}
-	#endregion	
+	#endregion
+	#region Methods (Class)
+	public void SetComputer(ComputerManager pTerminal)
+	{
+		this._terminalCreation = pTerminal;
+	}
+	public void FreeTerminalCreation()
+	{
+		if (this._terminalCreation != null) this._terminalCreation.HumanoidsCount--;
+	}
+	#endregion
 }

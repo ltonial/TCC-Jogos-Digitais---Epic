@@ -16,12 +16,14 @@ public class BulletGun : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(Vector3.forward * this._velocity * Time.deltaTime);
-        Destroy(gameObject, TIMETODESTROY);
+		if (!MenuPause.Paused)
+		{
+        	transform.Translate(Vector3.forward * this._velocity * Time.deltaTime);
+        	Destroy(gameObject, TIMETODESTROY);
+		}
     }
 	void OnTriggerEnter(Collider collider) 
 	{
-		Debug.Log("Trigger: " + collider.tag);
         if (collider.tag == "Player")
         {
             collider.GetComponent<PlayerManager>().Tank.EnergyLife -= BULLETDAMAGE;

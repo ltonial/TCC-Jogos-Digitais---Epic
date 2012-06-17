@@ -5,33 +5,36 @@ using UnityEngine;
 public class Challenge1 : MonoBehaviour
 {
     #region Attributes
-    private List<GameObject> _doorList = new List<GameObject>();
+    private List<GameObject> _challengeList = new List<GameObject>();
     private List<GameObject> _turretsList = new List<GameObject>();
-    private HumanoidManager _firstChallengeScript;
+    private HumanoidManager _firstHumanoidManager;
     #endregion
     #region Methods (Inherit)
     void Start()
     {
-        GameObject[] auxDoorObjects = GameObject.FindGameObjectsWithTag("Door");
-        if (auxDoorObjects != null) this._doorList = auxDoorObjects.ToList();
+        GameObject[] auxObjects = GameObject.FindGameObjectsWithTag("Challenge1");
+        if (auxObjects != null) this._challengeList = auxObjects.ToList();
 
         GameObject[] auxTurretObjects = GameObject.FindGameObjectsWithTag("Turret");
 	    if (auxTurretObjects != null) this._turretsList = auxTurretObjects.ToList();
         this._turretsList.ForEach(t => t.GetComponent<TurretManager>().enabled = false);
 
         GameObject auxObject = GameObject.Find("HumanoidRed");
-        this._firstChallengeScript = auxObject.GetComponent<HumanoidManager>();
+        this._firstHumanoidManager = auxObject.GetComponent<HumanoidManager>();
     }
     void Update()
     {
-        if (this._firstChallengeScript == null || this._firstChallengeScript.Health.IsDead)
+		if (!MenuPause.Paused)
+		{
+        if (this._firstHumanoidManager == null || this._firstHumanoidManager.Health.IsDead)
             ActiveTurrets();
+		}
     }
     #endregion
     #region Methods (Class)
     private void ActiveTurrets()
     {
-        this._doorList.ForEach(d => d.active = false);
+        this._challengeList.ForEach(c => c.active = false);
         this._turretsList.ForEach(t => t.GetComponent<TurretManager>().enabled = true);
         this.enabled = false;
     }

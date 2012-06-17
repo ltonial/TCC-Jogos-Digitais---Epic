@@ -20,10 +20,6 @@ public class MenuManager : MonoBehaviour
     private float _keyDelay = .25f;
     #endregion
     #region Methods
-	void Awake()
-	{
-		
-	}
 	/// <summary>
 	/// Start this instance.
 	/// </summary>

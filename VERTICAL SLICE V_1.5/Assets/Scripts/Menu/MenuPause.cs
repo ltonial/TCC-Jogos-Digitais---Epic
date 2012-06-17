@@ -37,7 +37,7 @@ public class MenuPause : MonoBehaviour
         this._textPause.enabled = MenuPause.Paused;
 
         Time.timeScale = 1f - Time.timeScale;
-        gameObject.GetComponent<CameraScript>().enabled = !gameObject.GetComponent<CameraScript >().enabled;
+        gameObject.GetComponent<CameraAction>().enabled = !gameObject.GetComponent<CameraAction>().enabled;
     }
     #endregion
 }

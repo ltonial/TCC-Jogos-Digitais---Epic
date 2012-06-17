@@ -5,7 +5,7 @@ public class TankPlayer
 {
     #region Constants
     private const int MAXENERGYLIFE = 5;
-    private const int MAXENERGYSHOT = 10;
+    private const int MAXENERGYSHOT = 100;
     private const int MAXENERGYSUMP = 10;
     #endregion
     #region Atributes

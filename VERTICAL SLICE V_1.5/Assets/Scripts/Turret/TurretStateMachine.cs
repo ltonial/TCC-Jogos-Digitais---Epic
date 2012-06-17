@@ -298,7 +298,7 @@ public class TurretStateMachine
     {
 		if (this._currentState == FiniteStateMachineType.ALERT)
         {
-			this.SetNewState(FiniteStateMachineType.IDLE); 
+			this.SetNewState(FiniteStateMachineType.PATROL); 
 		}
     }
     #endregion

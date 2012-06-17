@@ -63,7 +63,7 @@ public class WeaponPlayer
     #region Methods
     public void Start()
     {
-        this._arrowGo = (GameObject)Resources.Load("Shots/Arrow");
+        this._arrowGo = (GameObject)Resources.Load("Shots/BulletArrow");
         this._weaponGo = GameObject.FindGameObjectWithTag("ArrowPointer");
         this._reloadTimeShot = .3f;
         this._reloadTimeBullet = 3f;
@@ -84,12 +84,12 @@ public class WeaponPlayer
             RaycastHit hit;
             GameObject bullet = (GameObject)GameObject.Instantiate(this._arrowGo, this._weaponGo.transform.position, Camera.main.transform.rotation);
 
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100.0f))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100f))
             {
                 bullet.transform.LookAt(hit.point);
                 if (hit.transform.tag == "Turret")
                 {
-                    int testHealth = hit.transform.GetComponent<TurretManager>().Health.CurrentHealth - this._arrowGo.GetComponent<BulletScript>().Damage;
+                    int testHealth = hit.transform.GetComponent<TurretManager>().Health.CurrentHealth - this._arrowGo.GetComponent<BulletArrow>().Damage;
                     if (testHealth <= 0)
                     {
                         int random = Random.Range(0, 100);

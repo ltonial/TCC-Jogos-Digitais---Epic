@@ -15,6 +15,10 @@ public class TurretManager : MonoBehaviour
     /// Máquina de estados finita.
     /// </summary>
     private TurretStateMachine _fsm;
+	/// <summary>
+	/// The _terminal spawn.
+	/// </summary>
+	private ComputerManager _terminalSpawn;
     #endregion
     #region Properties
     /// <summary>
@@ -41,14 +45,23 @@ public class TurretManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+		if (!MenuPause.Paused)
+		{
         this._health.Update();
         if (this._health.IsDead)
         {
+			FreeTerminalSpawn();
+			
             this._fsm = null;
             Destroy(gameObject);
         }
         if (this._fsm != null) this._fsm.Update(Time.deltaTime);
+		}
     }
+	void OnGUI()
+	{
+		GUI.Label(new Rect(10, 10, 100, 100), "T.HEALTH: " + this._health.CurrentHealth);
+	}
     /// <summary>
     /// Desenha Gizmos em volta do Turret.
     /// </summary>
@@ -61,4 +74,16 @@ public class TurretManager : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, TurretStateMachine.DISTANCELIMITTOEVADE);
     }
     #endregion
+	#region Methods (Class)
+	public void SetTerminalSpawn(ComputerManager pTerminal)
+	{
+		this._terminalSpawn = pTerminal;
+	}
+	public void FreeTerminalSpawn()
+	{
+		Debug.Log("<< " + this._terminalSpawn.ActiveSpawn);
+		if (this._terminalSpawn != null) this._terminalSpawn.ActiveSpawn = false;
+		Debug.Log(">> " + this._terminalSpawn.ActiveSpawn);
+	}
+	#endregion
 }
