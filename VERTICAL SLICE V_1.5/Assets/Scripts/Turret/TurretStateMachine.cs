@@ -135,7 +135,7 @@ public class TurretStateMachine
         Vector3 worldTarget = this._target.TransformPoint(this._target.position);
         float auxDistance_Y = Mathf.Abs(Mathf.Abs(worldTurret.y) - Mathf.Abs(worldTarget.y));
 
-        Debug.Log(this._idTurret + " - STATE:" + this._currentState);
+//        Debug.Log(this._idTurret + " - STATE:" + this._currentState);
         switch (this._currentState)
         {
             case FiniteStateMachineType.IDLE:
