@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 public class TurretStateMachine
 {
+	private static int TURRET_ID = 0;
     #region Constants
 	private const float SPEEDIDLE = 0f;
     private const float ACCELERATIONIDLE = 0f;
@@ -18,11 +19,11 @@ public class TurretStateMachine
 	
     private const float SPEEDCHASE = 3f;
     private const float ACCELERATIONCHASE = 4f;
-	private const float ANGULARCHASE = 120f;
+	private const float ANGULARCHASE = 240f;
     private const float STOPPINGDISTANCECHASE = 0f;
 	
-	private const float SPEEDALERT = 5f;
-    private const float ACCELERATIONALERT = 6f;
+	private const float SPEEDALERT = 14f;
+    private const float ACCELERATIONALERT = 15f;
 	private const float ANGULARALERT = 120f;
 	private const float STOPPINGDISTANCEALERT = 0f;
 	
@@ -94,8 +95,9 @@ public class TurretStateMachine
     /// </summary>
     public TurretStateMachine(Transform pMyTransform)
     {
-        this._idTurret = new System.Guid().GetHashCode();
-        this._currentState = FiniteStateMachineType.PATROL;
+        this._idTurret = ++TURRET_ID;
+        this._currentState = FiniteStateMachineType.IDLE;
+		//SetNewState(FiniteStateMachineType.PATROL);
 
         this._distanceLimitToChasing = DISTANCELIMITTOCHASE;
         this._distanceLimitToEvade = DISTANCELIMITTOEVADE;
@@ -133,7 +135,7 @@ public class TurretStateMachine
         Vector3 worldTarget = this._target.TransformPoint(this._target.position);
         float auxDistance_Y = Mathf.Abs(Mathf.Abs(worldTurret.y) - Mathf.Abs(worldTarget.y));
 
-        //Debug.Log("STATE:" + this._currentState);
+        Debug.Log(this._idTurret + " - STATE:" + this._currentState);
         switch (this._currentState)
         {
             case FiniteStateMachineType.IDLE:
@@ -296,9 +298,10 @@ public class TurretStateMachine
     /// </summary>
     public void FoundComputer()
     {
+		Debug.Log("Encontrou computador!");
 		if (this._currentState == FiniteStateMachineType.ALERT)
         {
-			this.SetNewState(FiniteStateMachineType.PATROL); 
+			this.SetNewState(FiniteStateMachineType.IDLE); 
 		}
     }
     #endregion

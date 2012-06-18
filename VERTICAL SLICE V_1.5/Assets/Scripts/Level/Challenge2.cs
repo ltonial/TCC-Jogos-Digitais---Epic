@@ -28,11 +28,11 @@ public class Challenge2 : MonoBehaviour
 	{
 		if (!MenuPause.Paused)
 		{
-		int computersHacked = this._terminalList.Count(t => t.WasHacked);
-		if (computersHacked == COMPUTERS_NEED_HACK)
-		{
-			this._challengeList.ForEach(c => c.active = false);
-		}
+			int computersHacked = this._terminalList.Count(t => t.WasHacked);
+			if (computersHacked == COMPUTERS_NEED_HACK)
+			{
+				this._challengeList.ForEach(c => c.active = false);
+			}
 		}
 	}
     #endregion

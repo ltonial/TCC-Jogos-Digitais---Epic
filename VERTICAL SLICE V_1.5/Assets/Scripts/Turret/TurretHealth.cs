@@ -18,18 +18,25 @@ public class TurretHealth
     /// Quantidade atual de energia.
     /// </summary>
     private int _currentHealth;
+	/// <summary>
+	/// The _text health.
+	/// </summary>
+	private TextMesh _textHealth;
     #endregion
     #region Constructors
     /// <summary>
     /// Inicializando a energia do turret.
     /// </summary>
-    public TurretHealth()
+    public TurretHealth(TextMesh pText)
     {
         // Setando a energia inicial.
         this._maxHealth = HEALTH;
         this._currentHealth = _maxHealth;
         // TODO: Simulando barra de energia.
         this.HealthBarLenght = Screen.width / 2 - 20;
+		
+		this._textHealth = pText;
+		this._textHealth.renderer.material.color = Color.yellow;
     }
     #endregion
     #region Properties
@@ -53,6 +60,7 @@ public class TurretHealth
     public void Update()
     {
         this.UpdateHealth(0);
+		this._textHealth.text = this._currentHealth.ToString();
     }
     /// <summary>
     /// Ajusta a energia do inimigo.

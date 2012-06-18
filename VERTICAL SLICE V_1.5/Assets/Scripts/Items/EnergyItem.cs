@@ -10,12 +10,16 @@ public class EnergyItem : MonoBehaviour
     private const int QUANTITY = 30;
 	#endregion
 	#region Methods
+	void Start()
+	{
+		Debug.Log("SPAWN ENERGY");
+	}
     void OnTriggerEnter(Collider hit)
     {
-		Debug.Log(hit.transform.tag);
-        if (hit.transform.tag == "Player")
+		Debug.Log("ITEM: " + hit.tag);
+        if (hit.tag == "Player")
         {
-            hit.transform.GetComponent<PlayerManager>().Tank.ItemEnergy = QUANTITY;
+            hit.gameObject.GetComponent<PlayerManager>().Tank.ItemEnergy = QUANTITY;
             Destroy(gameObject);
         }
     }

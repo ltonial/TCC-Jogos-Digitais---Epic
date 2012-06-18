@@ -95,7 +95,7 @@ public class TurretTracer
             this._hithingSomething = false;
             return;
         }
-        else if (Physics.Raycast(this._ray, out this._hit));//, this._distanceRay))
+        else if (Physics.Raycast(this._ray, out this._hit))//, this._distanceRay))
         {
             // Guarda o objeto que fez o hit
             this._rayCollider = this._hit.collider;

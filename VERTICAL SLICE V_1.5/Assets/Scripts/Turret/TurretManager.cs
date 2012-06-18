@@ -37,7 +37,7 @@ public class TurretManager : MonoBehaviour
     void Start()
     {
         this._myTransform = transform;
-        this._health = new TurretHealth();
+        this._health = new TurretHealth(this._myTransform.FindChild("HealthText").GetComponent<TextMesh>());
         this._fsm = new TurretStateMachine(this._myTransform);
     }
     /// <summary>
@@ -58,10 +58,6 @@ public class TurretManager : MonoBehaviour
         if (this._fsm != null) this._fsm.Update(Time.deltaTime);
 		}
     }
-	void OnGUI()
-	{
-		GUI.Label(new Rect(10, 10, 100, 100), "T.HEALTH: " + this._health.CurrentHealth);
-	}
     /// <summary>
     /// Desenha Gizmos em volta do Turret.
     /// </summary>
@@ -81,9 +77,8 @@ public class TurretManager : MonoBehaviour
 	}
 	public void FreeTerminalSpawn()
 	{
-		Debug.Log("<< " + this._terminalSpawn.ActiveSpawn);
-		if (this._terminalSpawn != null) this._terminalSpawn.ActiveSpawn = false;
-		Debug.Log(">> " + this._terminalSpawn.ActiveSpawn);
+		if (this._terminalSpawn != null)
+			this._terminalSpawn.WasActivatedSpawn = false;
 	}
 	#endregion
 }

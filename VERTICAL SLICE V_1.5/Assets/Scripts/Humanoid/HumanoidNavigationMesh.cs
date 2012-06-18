@@ -4,6 +4,9 @@ using System.Collections;
 public class HumanoidNavigationMesh
 {
 	#region Constants
+	private const float MIN_STOPPINGDISTANCE_WHENGROUP = 5f;
+	private const float MAX_STOPPINGDISTANCE_WHENGROUP = 15f;
+	
 	private const float STOPPINGDISTANCETOSHOOT = 4f;
 	private const float STOPPINGDISTANCETOFIGHT = 1f;
 	private const float SPEEDDEFAULT = 2f;
@@ -69,10 +72,12 @@ public class HumanoidNavigationMesh
 		if (this._lastTargetPosition != this._targetTransform.position) 
 		{
 			float distance = Vector3.Distance(this._myTransform.position, this._targetTransform.position);
-			if (distance > 1f)
+			if (distance > 2f)
 			{
 				this._navigationAgent.SetDestination(this._targetTransform.position);
-				this._navigationAgent.stoppingDistance = STOPPINGDISTANCETOSHOOT;
+				this._navigationAgent.stoppingDistance = this._behaviour == BehaviourType.GROUP 
+					? Random.Range(MIN_STOPPINGDISTANCE_WHENGROUP, MAX_STOPPINGDISTANCE_WHENGROUP) 
+					: STOPPINGDISTANCETOSHOOT;
 			}
 			this._lastTargetPosition = this._targetTransform.position;
 		}
