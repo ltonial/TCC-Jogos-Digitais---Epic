@@ -67,14 +67,15 @@ public class BulletArrow : MonoBehaviour
             if (WeaponPlayer.BulletTimeActived)
                 this.ActiveBulletTime();
 
-            if (Physics.Raycast(this.transform.position, this.transform.forward, out this._hit, 1f))
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out this._hit, 0.3f))
             {
             	if (this._hit.transform.tag == "Turret" && this._hit.transform.GetComponent<TurretManager>() != null)
                 	this._hit.transform.GetComponent<TurretManager>().Health.UpdateHealth(-this._damage);
 				if (this._hit.transform.tag == "Humanoid" && this._hit.transform.GetComponent<HumanoidManager>() != null)
 					this._hit.transform.GetComponent<HumanoidManager>().Health.UpdateHealth(-this._damage);
 
-                Destroy(gameObject);
+                if(this._hit.transform.tag!="Player")
+                    Destroy(gameObject);
             }
             transform.Translate(Vector3.forward * this._velocity * Time.deltaTime);
         }
@@ -90,7 +91,7 @@ public class BulletArrow : MonoBehaviour
         this._player.GetComponent<CharacterController>().enabled = false;
         this._cameraMain.camera.enabled = false;
         this._cameraBullet.camera.enabled = true;
-        Time.timeScale = 0.3f;
+        Time.timeScale = 0.15f;
     }
     public void DesactiveBulletTime()
     {

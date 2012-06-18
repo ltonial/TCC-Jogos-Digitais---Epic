@@ -68,7 +68,7 @@ public class WeaponPlayer
         this._reloadTimeShot = .3f;
         this._reloadTimeBullet = 3f;
         this.Reloading = false;
-        this._percentBulletTime = 30;
+        this._percentBulletTime = 50;
     }
     /// <summary>
     /// Instancia tiros
@@ -95,7 +95,21 @@ public class WeaponPlayer
                         int random = Random.Range(0, 100);
                         if (random <= this._percentBulletTime)
                         {
+                            Debug.LogWarning("Aqui Roda o Bullet Time");
                             bullet.transform.LookAt(hit.transform);
+                            WeaponPlayer.BulletTimeActived = true;
+                        }
+                    }
+                }else if (hit.transform.tag == "Humanoid")
+                {
+                    int testHealth = hit.transform.GetComponent<HumanoidManager>().Health.CurrentHealth - this._arrowGo.GetComponent<BulletArrow>().Damage;
+                    if (testHealth <= 0)
+                    {
+                        int random = Random.Range(0, 100);
+                        if (random <= this._percentBulletTime)
+                        {
+                            Debug.LogWarning("Aqui Roda o Bullet Time");
+//                            bullet.transform.LookAt(hit.transform);
                             WeaponPlayer.BulletTimeActived = true;
                         }
                     }
