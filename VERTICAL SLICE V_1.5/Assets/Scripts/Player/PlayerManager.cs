@@ -41,21 +41,24 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         this._tank = new TankPlayer();
-		this._tank.Start();
+        this._tank.Start();
         this._weapon = new WeaponPlayer();
-		this._weapon.Start();
-		
-		this._weapon.Tank = this._tank;
+        this._weapon.Start();
+
+        this._weapon.Tank = this._tank;
         this._isReadyToShot = true;
-		
+
         this._bowObject = transform.FindChild("Bow").gameObject;
     }
     void Update()
     {
-		this._tank.Update();
-		
+        this._tank.Update();
+
         if (!MenuPause.Paused)
         {
+            //Se encontrar um computador, tenta hackear.
+            TryFindComputer();
+
             if (CurrentStatePlayer == StatePlayerType.AIM && Input.GetButtonDown(SHOT) && this._isReadyToShot)
             {
                 this._bowObject.animation.Play("BowShot");
@@ -63,6 +66,7 @@ public class PlayerManager : MonoBehaviour
                 this._isReadyToShot = false;
                 StartCoroutine(this.ReloadShot());
             }
+            
             if (this._tank.EnergySump > 0)
             {
                 if (Input.GetKeyDown(KeyCode.Q)) this._tank.ChoiceSideEnergy = TankType.LIFE;
@@ -105,6 +109,18 @@ public class PlayerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(this._weapon.ReloadTimeShot);
         this._isReadyToShot = true;
+    }
+    /// <summary>
+    /// Tenta encontrar o computador.
+    /// </summary>
+    private void TryFindComputer()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+        {
+            if (hit.transform.tag == "Computer")
+                hit.transform.GetComponent<ComputerManager>().OnHackedBehaviour();
+        }
     }
     #endregion
 }

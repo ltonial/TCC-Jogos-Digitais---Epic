@@ -18,7 +18,7 @@ public class Challenge2 : MonoBehaviour
 		GameObject[] auxObjects = GameObject.FindGameObjectsWithTag("Challenge2");
         if (auxObjects != null) this._challengeList = auxObjects.ToList();
 		
-		GameObject[] auxTerminals = GameObject.FindGameObjectsWithTag("HackedTerminal");
+		GameObject[] auxTerminals = GameObject.FindGameObjectsWithTag("Computer");
 		foreach (GameObject item in auxTerminals) 
 		{
 			this._terminalList.Add(item.GetComponent<ComputerManager>());

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TurretNavigationMesh
 {
-	#region Attributres
+    #region Attributres
     /// <summary>
     /// The _my transform.
     /// </summary>
@@ -33,14 +33,14 @@ public class TurretNavigationMesh
     {
         if (this._targetPosition != pNewPosition)
         {
-			this._targetPosition = pNewPosition;
+            this._targetPosition = pNewPosition;
 
             this._navigationAgent.updatePosition = true;
-			this._navigationAgent.speed = speed;
-			this._navigationAgent.acceleration= acceleration;
-			this._navigationAgent.angularSpeed = angular;
-			this._navigationAgent.stoppingDistance = stoppingDistance;
-			
+            this._navigationAgent.speed = speed;
+            this._navigationAgent.acceleration = acceleration;
+            this._navigationAgent.angularSpeed = angular;
+            this._navigationAgent.stoppingDistance = stoppingDistance;
+
             this._navigationAgent.SetDestination(this._targetPosition);
         }
     }

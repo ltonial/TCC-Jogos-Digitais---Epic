@@ -79,7 +79,7 @@ public class HumanoidManager : MonoBehaviour
 			if (this._health.IsDead) 
 			{
 				//TODO:Instancia o item de energia.
-				Instantiate(this._energyItem, this._myTransform.FindChild("Controlador").position, Quaternion.identity);
+				Instantiate(this._energyItem, this._myTransform.FindChild("Gun").position, Quaternion.identity);
 				//Instancia o ragdoll.
 				Instantiate (this._ragdoll, this._myTransform.position, this._myTransform.rotation);
 			

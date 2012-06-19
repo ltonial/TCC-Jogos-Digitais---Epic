@@ -95,7 +95,7 @@ public class WeaponPlayer
                         int random = Random.Range(0, 100);
                         if (random <= this._percentBulletTime)
                         {
-                            Debug.LogWarning("Aqui Roda o Bullet Time");
+                            //Debug.LogWarning("Aqui Roda o Bullet Time");
                             bullet.transform.LookAt(hit.transform);
                             WeaponPlayer.BulletTimeActived = true;
                         }
@@ -108,8 +108,8 @@ public class WeaponPlayer
                         int random = Random.Range(0, 100);
                         if (random <= this._percentBulletTime)
                         {
-                            Debug.LogWarning("Aqui Roda o Bullet Time");
-//                            bullet.transform.LookAt(hit.transform);
+                            //Debug.LogWarning("Aqui Roda o Bullet Time");
+                            //bullet.transform.LookAt(hit.transform);
                             WeaponPlayer.BulletTimeActived = true;
                         }
                     }

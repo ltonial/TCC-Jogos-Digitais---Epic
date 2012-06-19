@@ -5,39 +5,39 @@ using UnityEngine;
 /// </summary>
 public class TurretStateMachine
 {
-	private static int TURRET_ID = 0;
+    private static int TURRET_ID = 0;
     #region Constants
-	private const float SPEEDIDLE = 0f;
+    private const float SPEEDIDLE = 0f;
     private const float ACCELERATIONIDLE = 0f;
-	private const float ANGULARIDLE = 120f;
-	private const float STOPPINGDISTANCEIDLE = 0f;
-	
+    private const float ANGULARIDLE = 120f;
+    private const float STOPPINGDISTANCEIDLE = 0f;
+
     private const float SPEEDPATROL = 2f;
     private const float ACCELERATIONPATROL = 3f;
-	private const float ANGULARPATROL = 120f;
-	private const float STOPPINGDISTANCEPATROL = 0f;
-	
+    private const float ANGULARPATROL = 120f;
+    private const float STOPPINGDISTANCEPATROL = 0f;
+
     private const float SPEEDCHASE = 3f;
     private const float ACCELERATIONCHASE = 4f;
-	private const float ANGULARCHASE = 240f;
+    private const float ANGULARCHASE = 240f;
     private const float STOPPINGDISTANCECHASE = 0f;
-	
-	private const float SPEEDALERT = 14f;
-    private const float ACCELERATIONALERT = 15f;
-	private const float ANGULARALERT = 120f;
-	private const float STOPPINGDISTANCEALERT = 0f;
-	
-    private const float SPEEDEVADE = 4f;
-    private const float ACCELERATIONEVADE = 5f;
-	private const float ANGULAREVADE = 120f;
-	private const float STOPPINGDISTANCEEVADE = 0f;
-	
+
+    private const float SPEEDALERT = 4f;
+    private const float ACCELERATIONALERT = 5f;
+    private const float ANGULARALERT = 120f;
+    private const float STOPPINGDISTANCEALERT = 0f;
+
+    private const float SPEEDEVADE = 2.5f;
+    private const float ACCELERATIONEVADE = 3.5f;
+    private const float ANGULAREVADE = 120f;
+    private const float STOPPINGDISTANCEEVADE = 0f;
+
     public const float DISTANCELIMITTOCHASE = 15f;
     public const float DISTANCELIMITTOEVADE = 10f;
     //TODO:Desenvolver fight do turret (laser saindo da câmera).
-	public const float DISTANCELIMITTOFIGHT = 5f;
-	
-	private const float WORLDPOSITION_Y = .1f;
+    public const float DISTANCELIMITTOFIGHT = 5f;
+
+    private const float WORLDPOSITION_Y = .1f;
     private const float MINVALUEIDLE = 5f;
     private const float MAXVALUEIDLE = 10f;
     private const float MINVALUEPATROL = 15f;
@@ -97,7 +97,7 @@ public class TurretStateMachine
     {
         this._idTurret = ++TURRET_ID;
         this._currentState = FiniteStateMachineType.IDLE;
-		//SetNewState(FiniteStateMachineType.PATROL);
+        //SetNewState(FiniteStateMachineType.PATROL);
 
         this._distanceLimitToChasing = DISTANCELIMITTOCHASE;
         this._distanceLimitToEvade = DISTANCELIMITTOEVADE;
@@ -119,6 +119,7 @@ public class TurretStateMachine
     }
     public float DistanceLimitToChasing { get { return this._distanceLimitToChasing; } }
     public float DistanceLimitToEvade { get { return this._distanceLimitToEvade; } }
+    public TurretTracer Tracer { get { return this._tracer; } }
     #endregion
     #region Methods
     /// <summary>
@@ -135,7 +136,7 @@ public class TurretStateMachine
         Vector3 worldTarget = this._target.TransformPoint(this._target.position);
         float auxDistance_Y = Mathf.Abs(Mathf.Abs(worldTurret.y) - Mathf.Abs(worldTarget.y));
 
-//        Debug.Log(this._idTurret + " - STATE:" + this._currentState);
+        //Debug.Log(this._idTurret + " - STATE:" + this._currentState);
         switch (this._currentState)
         {
             case FiniteStateMachineType.IDLE:
@@ -214,6 +215,9 @@ public class TurretStateMachine
     {
         // Se enxergar o player ou se a distância for menor que o limite para se defender.
         if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade && pDistanceY < WORLDPOSITION_Y) this.SetNewState(FiniteStateMachineType.EVADE);
+
+        //Tenta encontrar um computador
+        //this.TryFindComputer();
     }
     /// <summary>
     /// Atualiza quando for EVADE.
@@ -257,21 +261,21 @@ public class TurretStateMachine
             case FiniteStateMachineType.PATROL:
                 this._idleTime = Random.Range(MINVALUEIDLE, MAXVALUEIDLE);
                 this._waypointSystem.UpdateWaypoint();
-                this._navigationMesh.SetDestination(this._waypointSystem.NearWaypoint.GameObject.transform.position, 
-					SPEEDPATROL, ACCELERATIONPATROL, ANGULARPATROL, STOPPINGDISTANCEPATROL);
+                this._navigationMesh.SetDestination(this._waypointSystem.NearWaypoint.GameObject.transform.position,
+                    SPEEDPATROL, ACCELERATIONPATROL, ANGULARPATROL, STOPPINGDISTANCEPATROL);
                 break;
             case FiniteStateMachineType.CHASE:
-                this._navigationMesh.SetDestination(this._target.position, 
-					SPEEDPATROL, ACCELERATIONPATROL, ANGULARPATROL, STOPPINGDISTANCEPATROL);
+                this._navigationMesh.SetDestination(this._target.position,
+                    SPEEDCHASE, ACCELERATIONCHASE, ANGULARCHASE, STOPPINGDISTANCECHASE);
                 break;
             case FiniteStateMachineType.ALERT:
                 this._waypointSystem.UpdateComputer();
-                this._navigationMesh.SetDestination(this._waypointSystem.NearComputer.GameObject.transform.position, 
-					SPEEDPATROL, ACCELERATIONPATROL, ANGULARPATROL, STOPPINGDISTANCEPATROL);
+                this._navigationMesh.SetDestination(this._waypointSystem.NearComputer.GameObject.transform.position,
+                    SPEEDALERT, ACCELERATIONALERT, ANGULARALERT, STOPPINGDISTANCEALERT);
                 break;
             case FiniteStateMachineType.EVADE:
                 //TODO:Criar sistema de fuga e defesa contra o player!!!
-				this.SetNewState(FiniteStateMachineType.IDLE);
+                this.SetNewState(FiniteStateMachineType.IDLE);
                 break;
             case FiniteStateMachineType.FIGHT:
             case FiniteStateMachineType.SHOT:
@@ -289,20 +293,31 @@ public class TurretStateMachine
         if (this._currentState == FiniteStateMachineType.PATROL)
         {
             this._waypointSystem.UpdateWaypoint();
-            this._navigationMesh.SetDestination(this._waypointSystem.NearWaypoint.GameObject.transform.position, 
-				SPEEDPATROL, ACCELERATIONPATROL, ANGULARPATROL, STOPPINGDISTANCEPATROL);
+            this._navigationMesh.SetDestination(this._waypointSystem.NearWaypoint.GameObject.transform.position,
+                SPEEDPATROL, ACCELERATIONPATROL, ANGULARPATROL, STOPPINGDISTANCEPATROL);
         }
     }
-	    /// <summary>
+    /// <summary>
     /// Se encontrou um computer.
     /// </summary>
     public void FoundComputer()
     {
-		Debug.Log("Encontrou computador!");
-		if (this._currentState == FiniteStateMachineType.ALERT)
+        Debug.Log("Encontrou computador!");
+        if (this._currentState == FiniteStateMachineType.ALERT)
         {
-			this.SetNewState(FiniteStateMachineType.IDLE); 
-		}
+            this.SetNewState(FiniteStateMachineType.IDLE);
+        }
     }
+    ///// <summary>
+    ///// 
+    ///// </summary>
+    //private void TryFindComputer()
+    //{
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(this._myTransform.position, this._myTransform.forward, out hit, 1f))
+    //    {
+    //        Debug.Log("RAY: " + hit.transform.tag);
+    //    }
+    //}
     #endregion
 }

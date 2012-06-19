@@ -34,7 +34,11 @@ public class TurretTracer
     /// <summary>
     /// Distãncia de 'visão' do turret.
     /// </summary>
-    private float _distanceRay;
+    private float _distanceToComputer;
+    /// <summary>
+    /// The _terminal spawn.
+    /// </summary>
+    private ComputerManager _computerSpawn;
     #endregion
     #region Constructors
     /// <summary>
@@ -43,7 +47,7 @@ public class TurretTracer
     public TurretTracer(Transform pMyTransform)
     {
         this._myTransform = pMyTransform;
-        this._distanceRay = 10f;
+        this._distanceToComputer = 1f;
         this._hithingSomething = false;
         this._rayOrigin = this._myTransform.position;
         this._rayCollider = new Collider();
@@ -95,11 +99,23 @@ public class TurretTracer
             this._hithingSomething = false;
             return;
         }
-        else if (Physics.Raycast(this._ray, out this._hit))//, this._distanceRay))
+        else if (Physics.Raycast(this._ray, out this._hit))
         {
             // Guarda o objeto que fez o hit
             this._rayCollider = this._hit.collider;
             this._hithingSomething = true;
+        }
+        
+        //Se encontrar um computador
+        if (Physics.Raycast(this._ray, out this._hit, this._distanceToComputer))
+        {
+            if (this._hit.transform.tag == "Computer")
+            {
+                ComputerManager computer = this._hit.transform.GetComponent<ComputerManager>();
+                computer.OnSpawnBehaviour();
+
+                this._computerSpawn = computer;
+            }
         }
     }
     /// <summary>
@@ -116,6 +132,25 @@ public class TurretTracer
         endColor.a = Random.Range(0f, 1f);
 
         this._lr.SetColors(startColor, endColor);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="pTerminal"></param>
+    private void SetComputerSpawn(ComputerManager pTerminal)
+    {
+        this._computerSpawn = pTerminal;
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public void FreeComputerSpawn()
+    {
+        if (this._computerSpawn != null)
+        {
+            this._computerSpawn.WasActivatedSpawn = false;
+            Debug.Log("FALSE");
+        }
     }
     #endregion
 }
