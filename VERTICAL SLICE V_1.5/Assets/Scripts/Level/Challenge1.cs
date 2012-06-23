@@ -14,6 +14,7 @@ public class Challenge1 : MonoBehaviour
     {
         GameObject[] auxObjects = GameObject.FindGameObjectsWithTag("Challenge1");
         if (auxObjects != null) this._challengeList = auxObjects.ToList();
+        this._challengeList.ForEach(c => c.active = false);
 
         GameObject[] auxTurretObjects = GameObject.FindGameObjectsWithTag("Turret");
 	    if (auxTurretObjects != null) this._turretsList = auxTurretObjects.ToList();
@@ -26,17 +27,13 @@ public class Challenge1 : MonoBehaviour
     {
 		if (!MenuPause.Paused)
 		{
-        if (this._firstHumanoidManager == null || this._firstHumanoidManager.Health.IsDead)
-            ActiveTurrets();
+            if (this._firstHumanoidManager == null || this._firstHumanoidManager.Health.IsDead)
+            {
+                this._challengeList.ForEach(c => c.active = true);
+                this._turretsList.ForEach(t => t.GetComponent<TurretManager>().enabled = true);
+                this.enabled = false;
+            }
 		}
-    }
-    #endregion
-    #region Methods (Class)
-    private void ActiveTurrets()
-    {
-        this._challengeList.ForEach(c => c.active = false);
-        this._turretsList.ForEach(t => t.GetComponent<TurretManager>().enabled = true);
-        this.enabled = false;
     }
     #endregion
 }

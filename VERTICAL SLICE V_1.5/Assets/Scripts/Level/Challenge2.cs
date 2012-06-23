@@ -6,7 +6,7 @@ using System.Linq;
 public class Challenge2 : MonoBehaviour
 {
 	#region Constants
-	private int COMPUTERS_NEED_HACK = 4;
+	private const int COMPUTERS_NEED_HACK = 4;
 	#endregion
     #region Attributes
 	private List<GameObject> _challengeList = new List<GameObject>();
@@ -17,6 +17,7 @@ public class Challenge2 : MonoBehaviour
 	{
 		GameObject[] auxObjects = GameObject.FindGameObjectsWithTag("Challenge2");
         if (auxObjects != null) this._challengeList = auxObjects.ToList();
+        this._challengeList.ForEach(c => c.active = false);
 		
 		GameObject[] auxTerminals = GameObject.FindGameObjectsWithTag("Computer");
 		foreach (GameObject item in auxTerminals) 
@@ -31,12 +32,10 @@ public class Challenge2 : MonoBehaviour
 			int computersHacked = this._terminalList.Count(t => t.WasHacked);
 			if (computersHacked == COMPUTERS_NEED_HACK)
 			{
-				this._challengeList.ForEach(c => c.active = false);
+				this._challengeList.ForEach(c => c.active = true);
+                this.enabled = false;
 			}
 		}
 	}
-    #endregion
-    #region Methods (Class)
-    
     #endregion
 }

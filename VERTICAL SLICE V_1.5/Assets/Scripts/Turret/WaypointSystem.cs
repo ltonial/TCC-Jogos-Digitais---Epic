@@ -86,7 +86,6 @@ public class WaypointSystem
     public GameObject Patrol()
     {
         this._foundWaypoint = Vector3.Distance(this._myTransform.position, this._nearWaypoint.GameObject.transform.position) < 1f;
-        //if (this._foundWaypoint) this._nearWaypoint = this.FindNearWaypoint(this._nearWaypoint);
         if (this._foundWaypoint) this._nearWaypoint = this.FindNearWaypoint();
 
         return this._nearWaypoint.GameObject;
@@ -133,7 +132,6 @@ public class WaypointSystem
     /// </summary>
     public void UpdateWaypoint()
     {
-        //this._nearWaypoint = this.FindNearWaypoint(this._nearWaypoint);
         this._nearWaypoint = this.FindNearWaypoint();
         // Se a fila estiver com mais de 3 waypoints, libera os primieros incluídos.
         if (this._foundWaypointsQueue.Count > 3) this._foundWaypointsQueue.Dequeue();
@@ -180,7 +178,6 @@ public class WaypointSystem
                 if (!auxWaypointToTargetCollision) auxBetterWay = item.GameObject;
             }
         }
-        //if (auxBetterWay == null) auxBetterWay = this._nearWaypoint.GameObject;
         return auxBetterWay;
     }
     /// <summary>
@@ -199,9 +196,7 @@ public class WaypointSystem
             // Distância do computador até o turret.
             float auxDistanceToComputer = Vector3.Distance(this._nearComputer.GameObject.transform.position, this._myTransform.position);
             // Verifica se há uma parede no caminho.
-            //LayerMask mask = 15;
-            //Debug.Log("LayerMask: " + LayerMask.LayerToName(mask.value));
-            bool auxWallBetween = Physics.Linecast(item.GameObject.transform.position, this._myTransform.position);//, mask);
+            bool auxWallBetween = Physics.Linecast(item.GameObject.transform.position, this._myTransform.position);
 
             // Se não há parede no caminho, 
             // se a distância até o waypoint for menor que a melhor distância e
@@ -222,17 +217,14 @@ public class WaypointSystem
     /// <summary>
     /// Finds the near waypoint.
     /// </summary>
-    //private Waypoint FindNearWaypoint(Waypoint pWaypoint = null)
     private Waypoint FindNearWaypoint()
     {
         Waypoint auxNearWaypoint = null;
         if (this._waypointsList.Count > 0)
         {
-            //List<Waypoint> auxList = new List<Waypoint>(this._waypointsList);
-            //if (pWaypoint != null) auxList.Remove(pWaypoint);
             List<Waypoint> auxList = this.GetAvailableWaypoints();
 
-            auxNearWaypoint = auxList[0];
+            //auxNearWaypoint = auxList[0];
             float auxDistanceToBetterWay = Mathf.Infinity;
             foreach (Waypoint item in auxList)
             {
@@ -249,21 +241,17 @@ public class WaypointSystem
         }
         else Debug.LogError("NÃO HÁ WAYPOINTS NO CENÁRIO!");
 
-        this._foundWaypoint = false;
         this._foundWaypointsQueue.Enqueue(auxNearWaypoint);
         return auxNearWaypoint;
     }
     /// <summary>
     /// Finds the near computer.
     /// </summary>
-    //private Computer FindNearComputer(Computer pComputer = null)
     private Computer FindNearComputer()
     {
         Computer auxNearComputer = null;
         if (this._computersList.Count > 0)
         {
-            //List<Computer> auxList = new List<Computer>(this._computersList);
-            //if (pComputer != null) auxList.Remove(pComputer);
             List<Computer> auxList = this._computersList;
 
             auxNearComputer = auxList[0];
@@ -273,7 +261,6 @@ public class WaypointSystem
                 // Distância do waypoint até o turret.
                 float auxDistanceToComputer = Vector3.Distance(item.GameObject.transform.position, this._myTransform.position);
 
-                // Se não há parede no caminho, 
                 // se a distância até o waypoint for menor que a melhor distância
                 if (auxDistanceToComputer < auxDistanceToBetterWay)
                 {
@@ -284,7 +271,6 @@ public class WaypointSystem
         }
         else Debug.LogError("NÃO HÁ COMPUTADORES NO CENÁRIO!");
 
-        this._foundComputer = false;
         return auxNearComputer;
     }
     /// <summary>

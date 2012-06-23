@@ -6,6 +6,6 @@ public class LiftMovement : MonoBehaviour
     void Start()
     {
         animation.wrapMode = WrapMode.PingPong;
-        animation.Play("LiftUpDown");
+        animation.Play("LiftMovement");
     }
 }

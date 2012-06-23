@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Shots\BulletArrow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Level\Challenge3.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player\WeaponPlayer.cs" Line="71" Column="37" />
-      <File FileName="Assets\Scripts\Shots\BulletArrow.cs" Line="106" Column="51" />
-      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="11" Column="5" />
+      <File FileName="Assets\Scripts\Level\Challenge3.cs" Line="4" Column="19" />
+      <File FileName="Assets\Scripts\Level\LabyrinthManager.cs" Line="33" Column="19" />
+      <File FileName="Assets\Scripts\Level\LiftMovement.cs" Line="10" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

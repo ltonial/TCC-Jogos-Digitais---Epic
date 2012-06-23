@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Turret finite state machine.
@@ -37,7 +38,7 @@ public class TurretStateMachine
     //TODO:Desenvolver fight do turret (laser saindo da câmera).
     public const float DISTANCELIMITTOFIGHT = 5f;
 
-    private const float WORLDPOSITION_Y = .1f;
+    private const float WORLDPOSITION_Y = .2f;
     private const float MINVALUEIDLE = 5f;
     private const float MAXVALUEIDLE = 10f;
     private const float MINVALUEPATROL = 15f;
@@ -71,14 +72,6 @@ public class TurretStateMachine
     /// </summary>
     private Transform _target;
     /// <summary>
-    /// Velocidade de movimentação do turret.
-    /// </summary>
-    //private float _moveSpeed;
-    /// <summary>
-    /// Velocidade de rotação.
-    /// </summary>
-    //private float _rotationSpeed;
-    /// <summary>
     /// Distância em comparação ao target.
     /// </summary>
     private float _distanceLimitToChasing;
@@ -88,6 +81,10 @@ public class TurretStateMachine
     /// </summary>
     private float _idleTime;
     private float _patrolTIme;
+        /// <summary>
+    /// The _terminal spawn.
+    /// </summary>
+    private List<ComputerManager> _computerSpawnList = new List<ComputerManager>();
     #endregion
     #region Constructors
     /// <summary>
@@ -117,8 +114,6 @@ public class TurretStateMachine
     {
         get { return this._currentState; }
     }
-    public float DistanceLimitToChasing { get { return this._distanceLimitToChasing; } }
-    public float DistanceLimitToEvade { get { return this._distanceLimitToEvade; } }
     public TurretTracer Tracer { get { return this._tracer; } }
     #endregion
     #region Methods
@@ -170,11 +165,13 @@ public class TurretStateMachine
     private void UpdateIdle(float pDeltaTime, float pDistanceToTarget, float pDistanceY)
     {
         // Se a distância for menor que o limite para se defender.
-        if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade && pDistanceY < WORLDPOSITION_Y) this.SetNewState(FiniteStateMachineType.EVADE);
+        if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade)// && pDistanceY < WORLDPOSITION_Y)
+            this.SetNewState(FiniteStateMachineType.EVADE);
         // Se enxergar o target.
         else if (this._tracer.HithingTarget) this.SetNewState(FiniteStateMachineType.ALERT);
         // Se a distância for menor que o limite para perseguir.
-        else if (pDistanceToTarget < this._distanceLimitToChasing && pDistanceY < WORLDPOSITION_Y) this.SetNewState(FiniteStateMachineType.CHASE);
+        else if (pDistanceToTarget < this._distanceLimitToChasing)// && pDistanceY < WORLDPOSITION_Y)
+            this.SetNewState(FiniteStateMachineType.CHASE);
         // Senão decrementa o tempo para mudar para patrulhando.
         else
         {
@@ -188,11 +185,13 @@ public class TurretStateMachine
     private void UpdatePatrol(float pDeltaTime, float pDistanceToTarget, float pDistanceY)
     {
         // Se a distância for menor que o limite para se defender.
-        if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade && pDistanceY < WORLDPOSITION_Y) this.SetNewState(FiniteStateMachineType.EVADE);
+        if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade)// && pDistanceY < WORLDPOSITION_Y)
+            this.SetNewState(FiniteStateMachineType.EVADE);
         // Se enxergar o target.
         else if (this._tracer.HithingTarget) this.SetNewState(FiniteStateMachineType.ALERT);
         // Se a distância for menor que o limite para perseguir.
-        else if (pDistanceToTarget < this._distanceLimitToChasing && pDistanceY < WORLDPOSITION_Y) this.SetNewState(FiniteStateMachineType.CHASE);
+        else if (pDistanceToTarget < this._distanceLimitToChasing)// && pDistanceY < WORLDPOSITION_Y)
+            this.SetNewState(FiniteStateMachineType.CHASE);
         // Senão decrementa o tempo para mudar para patrulhando.
         else
         {
@@ -206,7 +205,10 @@ public class TurretStateMachine
     private void UpdateChase(float pDeltaTime)
     {
         // Se enxergar o target.
-        if (this._tracer.HithingTarget) this.SetNewState(FiniteStateMachineType.ALERT);
+        if (this._tracer.HithingTarget)
+            this.SetNewState(FiniteStateMachineType.ALERT);
+        else //Atualiza a navegação.
+            this._navigationMesh.SetDestination(this._target.position, SPEEDCHASE, ACCELERATIONCHASE, ANGULARCHASE, STOPPINGDISTANCECHASE);
     }
     /// <summary>
     /// Atualiza quando for ALERT.
@@ -214,10 +216,18 @@ public class TurretStateMachine
     private void UpdateAlert(float pDeltaTime, float pDistanceToTarget, float pDistanceY)
     {
         // Se enxergar o player ou se a distância for menor que o limite para se defender.
-        if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade && pDistanceY < WORLDPOSITION_Y) this.SetNewState(FiniteStateMachineType.EVADE);
+        if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade)// && pDistanceY < WORLDPOSITION_Y)
+            this.SetNewState(FiniteStateMachineType.EVADE);
 
-        //Tenta encontrar um computador
-        //this.TryFindComputer();
+        //Se encontrar um computador
+        if (this._tracer.TryFindComputer())
+            this.SetComputerSpawn(this._tracer.Hit.transform.GetComponent<ComputerManager>());
+        else if (this._waypointSystem.NearComputer != null)
+        {
+            float auxDistance = Vector2.Distance(this._myTransform.position, this._waypointSystem.NearComputer.GameObject.transform.position);
+            if (auxDistance <= 2f)
+                this.SetComputerSpawn(this._waypointSystem.NearComputer.GameObject.transform.GetComponent<ComputerManager>());
+        }
     }
     /// <summary>
     /// Atualiza quando for EVADE.
@@ -228,7 +238,7 @@ public class TurretStateMachine
         if (Vector3.Distance(this._myTransform.position, this._waypointSystem.NearComputer.GameObject.transform.position) <= Vector3.Distance(this._myTransform.position, this._target.position))
             this.SetNewState(FiniteStateMachineType.ALERT);
     }
-    /// <summary>
+    /*/// <summary>
     /// Atualiza a movimentação
     /// </summary>
     private void UpdateMovement(GameObject followObject, float moveSpeed, float rotationSpeed)
@@ -242,12 +252,12 @@ public class TurretStateMachine
 
         // Incrementa a posição para seguir o target.
         this._myTransform.position += this._myTransform.forward * moveSpeed * Time.deltaTime;
-    }
+    }*/
     /// <summary>
     /// Seta o novo comportamento.
     /// </summary>
     /// <param name="pNewStateMachine"></param>
-    private void SetNewState(FiniteStateMachineType pNewStateMachine)
+    public void SetNewState(FiniteStateMachineType pNewStateMachine)
     {
         //Novo estado.
         this._currentState = pNewStateMachine;
@@ -275,7 +285,7 @@ public class TurretStateMachine
                 break;
             case FiniteStateMachineType.EVADE:
                 //TODO:Criar sistema de fuga e defesa contra o player!!!
-                this.SetNewState(FiniteStateMachineType.IDLE);
+                this.SetNewState(FiniteStateMachineType.ALERT);
                 break;
             case FiniteStateMachineType.FIGHT:
             case FiniteStateMachineType.SHOT:
@@ -298,26 +308,24 @@ public class TurretStateMachine
         }
     }
     /// <summary>
-    /// Se encontrou um computer.
+    /// Sets the computer spawn.
     /// </summary>
-    public void FoundComputer()
+    /// <param name='pComputer'>
+    /// P computer.
+    /// </param>
+    public void SetComputerSpawn(ComputerManager pComputer)
     {
-        Debug.Log("Encontrou computador!");
-        if (this._currentState == FiniteStateMachineType.ALERT)
-        {
-            this.SetNewState(FiniteStateMachineType.IDLE);
-        }
+        pComputer.OnSpawnBehaviour();
+        this._computerSpawnList.Add(pComputer);
+
+        this.SetNewState(FiniteStateMachineType.PATROL);
     }
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    //private void TryFindComputer()
-    //{
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(this._myTransform.position, this._myTransform.forward, out hit, 1f))
-    //    {
-    //        Debug.Log("RAY: " + hit.transform.tag);
-    //    }
-    //}
+    /// <summary>
+    /// 
+    /// </summary>
+    public void FreeComputerSpawn()
+    {
+        this._computerSpawnList.ForEach(c => c.WasActivatedSpawn = false);
+    }
     #endregion
 }

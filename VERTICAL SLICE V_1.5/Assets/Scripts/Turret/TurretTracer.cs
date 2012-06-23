@@ -14,27 +14,23 @@ public class TurretTracer
     /// <summary>
     /// O hit do raycast.
     /// </summary>
-    public RaycastHit _hit;
+    private RaycastHit _hit;
     /// <summary>
     /// O ray.
     /// </summary>
-    public Ray _ray;
+    private Ray _ray;
     /// <summary>
     /// A origem, ou seja, posição inicial do ray.
     /// </summary>
-    public Vector3 _rayOrigin;
+    private Vector3 _rayOrigin;
     /// <summary>
     /// Quem colidirá com o ray (usado para comportamento do turret).
     /// </summary>
-    public Collider _rayCollider;
+    private Collider _rayCollider;
     /// <summary>
     /// Se o ray tocou algo.
     /// </summary>
-    public bool _hithingSomething;
-    /// <summary>
-    /// Distãncia de 'visão' do turret.
-    /// </summary>
-    private float _distanceToComputer;
+    private bool _hithingSomething;
     /// <summary>
     /// The _terminal spawn.
     /// </summary>
@@ -47,7 +43,6 @@ public class TurretTracer
     public TurretTracer(Transform pMyTransform)
     {
         this._myTransform = pMyTransform;
-        this._distanceToComputer = 1f;
         this._hithingSomething = false;
         this._rayOrigin = this._myTransform.position;
         this._rayCollider = new Collider();
@@ -68,6 +63,16 @@ public class TurretTracer
                 this._rayCollider.gameObject.tag == "Player" 
                 && this._hithingSomething;
         }
+    }
+    public Ray Raycast
+    {
+        get { return this._ray; }
+        set { this._ray = value; }
+    }
+    public RaycastHit Hit
+    {
+        get { return this._hit; }
+        set { this._hit = value; }
     }
     #endregion
     #region Methods
@@ -105,18 +110,25 @@ public class TurretTracer
             this._rayCollider = this._hit.collider;
             this._hithingSomething = true;
         }
-        
-        //Se encontrar um computador
-        if (Physics.Raycast(this._ray, out this._hit, this._distanceToComputer))
+
+    }
+    public bool TryFindComputer()
+    {
+        // Move o ray para onde está o objeto.
+        this._rayOrigin = this._myTransform.position;
+
+        // Criando o ray
+        Vector3 auxTransformFoward = this._myTransform.forward;
+        auxTransformFoward.y = 0f;
+        this._ray = new Ray(this._rayOrigin, auxTransformFoward);
+
+        if (Physics.Raycast(this._ray, out this._hit, 1f))
         {
             if (this._hit.transform.tag == "Computer")
-            {
-                ComputerManager computer = this._hit.transform.GetComponent<ComputerManager>();
-                computer.OnSpawnBehaviour();
-
-                this._computerSpawn = computer;
-            }
+                return true;
         }
+
+        return false;
     }
     /// <summary>
     /// Redesenha o tracer
@@ -132,25 +144,6 @@ public class TurretTracer
         endColor.a = Random.Range(0f, 1f);
 
         this._lr.SetColors(startColor, endColor);
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="pTerminal"></param>
-    private void SetComputerSpawn(ComputerManager pTerminal)
-    {
-        this._computerSpawn = pTerminal;
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    public void FreeComputerSpawn()
-    {
-        if (this._computerSpawn != null)
-        {
-            this._computerSpawn.WasActivatedSpawn = false;
-            Debug.Log("FALSE");
-        }
     }
     #endregion
 }

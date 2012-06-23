@@ -24,6 +24,13 @@ public class TurretNavigationMesh
         this._navigationAgent = pNavigationAgent;
     }
     #endregion
+    #region Properties
+    public NavMeshAgent NavigationAgent
+    {
+        get { return this._navigationAgent; }
+        set { this._navigationAgent = value; }
+    }
+    #endregion
     #region Methods
     public void Update()
     {

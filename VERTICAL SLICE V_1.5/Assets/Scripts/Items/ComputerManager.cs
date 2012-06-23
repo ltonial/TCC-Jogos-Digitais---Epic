@@ -17,6 +17,11 @@ public class ComputerManager : MonoBehaviour
     private GameObject _enemyObject;
     private Transform _spawnTransform;
     private List<HumanoidManager> _humanoidSpawnedList = new List<HumanoidManager>();
+    private Material _alarmMaterial;
+    private Material _hackedMaterial;
+    private Material _desactivatedMaterial;
+    private Transform _screenTransform;
+    private Light _lightObject;
     #endregion
     #region Properties
     public int TotalSpawn
@@ -43,11 +48,17 @@ public class ComputerManager : MonoBehaviour
         this._timeToSpawn = SPAWNTIME;
         this._totalSpawn = 0;
 
+        this._screenTransform = transform.FindChild("Screen");
+        this._lightObject = transform.FindChild("Light").GetComponent<Light>();
+
         this._enemyObject = (GameObject)Resources.Load("Enemies/HumanoidRed");
         this._spawnTransform = transform.FindChild("Spawn");
 
-        //TODO: Somente p/ visualização.
-        this.ChangeColor(Color.gray);
+        this._alarmMaterial = (Material)Resources.Load("Computer/Alarm");
+        this._hackedMaterial = (Material)Resources.Load("Computer/Hacked");
+        this._desactivatedMaterial = (Material)Resources.Load("Computer/Desactivated");
+
+        this.ChangeTextureAndLight(this._desactivatedMaterial, Color.yellow);
     }
     void Update()
     {
@@ -59,6 +70,10 @@ public class ComputerManager : MonoBehaviour
                 this._timeToSpawn = SPAWNTIME;
                 this.InstantiateEnemy();
             }
+        }
+        else if (!this._wasActivatedSpawn && !this._wasHacked)
+        {
+            ChangeTextureAndLight(this._desactivatedMaterial, Color.yellow);
         }
     }
     #endregion
@@ -72,8 +87,7 @@ public class ComputerManager : MonoBehaviour
         {
             this._wasHacked = true;
 
-            //TODO: Somente p/ visualização.
-            ChangeColor(Color.green);
+            ChangeTextureAndLight(this._hackedMaterial, Color.blue);
         }
     }
     /// <summary>
@@ -89,17 +103,17 @@ public class ComputerManager : MonoBehaviour
 
             this.InstantiateEnemy();
 
-            //TODO: Somente p/ visualização.
-            ChangeColor(Color.red);
+            ChangeTextureAndLight(this._alarmMaterial, Color.red);
         }
     }
     /// <summary>
     /// 
     /// </summary>
     /// <param name="newColor"></param>
-    private void ChangeColor(Color newColor)
+    private void ChangeTextureAndLight(Material newMaterial, Color newColor)
     {
-        transform.renderer.material.color = newColor;
+        this._screenTransform.renderer.material = new Material(newMaterial);
+        this._lightObject.color = newColor;
     }
     /// <summary>
     /// 
@@ -114,8 +128,7 @@ public class ComputerManager : MonoBehaviour
             this._humanoidSpawnedList.ForEach(h => h.RemoveTerminal());
             this._humanoidSpawnedList.Clear();
 
-            //TODO: Somente p/ visualização.
-            this.ChangeColor(Color.gray);
+            this.ChangeTextureAndLight(this._desactivatedMaterial, Color.yellow);
         }
         else
         {

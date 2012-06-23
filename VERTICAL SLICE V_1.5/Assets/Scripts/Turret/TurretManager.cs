@@ -33,8 +33,8 @@ public class TurretManager : MonoBehaviour
     void Start()
     {
         this._myTransform = transform;
-        this._health = new TurretHealth(this._myTransform.FindChild("HealthText").GetComponent<TextMesh>());
         this._fsm = new TurretStateMachine(this._myTransform);
+        this._health = new TurretHealth(this._myTransform.FindChild("HealthText").GetComponent<TextMesh>());
     }
     /// <summary>
     /// Atualizando o turret.
@@ -43,10 +43,10 @@ public class TurretManager : MonoBehaviour
     {
         if (!MenuPause.Paused)
         {
-            this._health.Update();
+            this._health.Update(this._fsm.CurrentState);
             if (this._health.IsDead)
             {
-                this._fsm.Tracer.FreeComputerSpawn();
+                this._fsm.FreeComputerSpawn();
 
                 this._fsm = null;
                 Destroy(gameObject);
@@ -63,6 +63,9 @@ public class TurretManager : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, TurretStateMachine.DISTANCELIMITTOCHASE);
 
         Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, TurretStateMachine.DISTANCELIMITTOFIGHT);
+
+        Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, TurretStateMachine.DISTANCELIMITTOEVADE);
     }
     #endregion

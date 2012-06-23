@@ -11,12 +11,7 @@ public class ItemIdentificator : MonoBehaviour
     }
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Turret" && gameObject.tag == "Waypoint") 
+        if (collider.tag == "Turret" && gameObject.tag == "Waypoint")
 			collider.GetComponent<TurretManager>().FSM.FoundWaypoint();
     }
-	void OnCollisionEnter(Collision collision)
-	{
-		if (collision.gameObject.tag == "Turret" && gameObject.tag == "Computer") 
-			collision.transform.GetComponent<TurretManager>().FSM.FoundComputer();
-	}
 }

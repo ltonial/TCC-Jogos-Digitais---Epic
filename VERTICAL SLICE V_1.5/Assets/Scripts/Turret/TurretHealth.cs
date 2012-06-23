@@ -57,10 +57,10 @@ public class TurretHealth
     /// <summary>
     /// Atualizando o turret.
     /// </summary>
-    public void Update()
+    public void Update(FiniteStateMachineType fsm)
     {
         this.UpdateHealth(0);
-		this._textHealth.text = this._currentHealth.ToString();
+		this._textHealth.text = fsm.ToString();
     }
     /// <summary>
     /// Ajusta a energia do inimigo.
