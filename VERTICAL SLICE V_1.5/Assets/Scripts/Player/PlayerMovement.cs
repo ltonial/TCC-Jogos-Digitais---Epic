@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     /// A velocidade que o personagem rotaciona
     /// </summary>
     private float _rotatePlayerSpeed = 250f;
+    /// A velocidade que o jogador tem quando está mirando
+    /// </summary>
+    private float _aimSpeed = 2f;
     /// <summary>
     /// A velocidade que o jogador caminha
     /// </summary>
@@ -231,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void MovePlayer()
     {
-        Transform cameraTransform = Camera.main.transform;
+        Transform cameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
         //retorna true se o jogador está no chão e false senão está
         bool grounded = _controller.isGrounded;
 
@@ -288,7 +291,10 @@ public class PlayerMovement : MonoBehaviour
             float targetSpeed = Mathf.Min(targetDirection.magnitude, 1f);
 
             // Escolhe o modificador de velocidade
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            // Escolhe o modificador de velocidade
+            if (PlayerManager.CurrentStatePlayer == StatePlayerType.AIM)
+                targetSpeed *= _aimSpeed;
+            else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                 targetSpeed *= _runSpeed;
             else
                 targetSpeed *= _walkSpeed;
