@@ -7,17 +7,20 @@ public class SwitchCameras : MonoBehaviour
     #region Attributes
     private FadeCamera _scriptFade;
     private GameObject _cameraPit;
-    private GameObject _cameraStairs;
+    private GameObject _cameraStairsLeft;
+    private GameObject _cameraStairsRight;
     private GameObject _cameraRing;
     public static bool _activeCameraPit = false;
-    public static bool _activeCameraStairs = false;
+    public static bool _activeCameraStairsLeft = false;
+    public static bool _activeCameraStairsRight = false;
     public static bool _activeCameraRing = false;
     private bool _canFade;
     private float _timeToShowCamera;
-    private const float TIMETOSHOWCAMERA = 5.0f;
+    private const float TIMETOSHOWCAMERA = 10.0f;
     private const float TIME_FADE = 2.0f;
     private bool _cameraPitStoppedGame;
-    private bool _cameraStairsStoppedGame;
+    private bool _cameraStairsLeftStoppedGame;
+    private bool _cameraStairsRightStoppedGame;
     private bool _cameraRingStoppedGame;
     private GameObject _player;
     private GameObject[] _turrets;
@@ -31,15 +34,18 @@ public class SwitchCameras : MonoBehaviour
         this._player = GameObject.FindWithTag("Player");
         this._scriptFade = GetComponent<FadeCamera>();
         this._cameraPit = GameObject.Find("Camera-Pit");
-        this._cameraStairs = GameObject.Find("Camera-Stairs");
+        this._cameraStairsLeft = GameObject.Find("Camera-Stairs-Left");
+        this._cameraStairsRight = GameObject.Find("Camera-Stairs-Right");
         this._cameraRing = GameObject.Find("Camera-Ring");
         this._timeToShowCamera = TIMETOSHOWCAMERA;
         this._cameraPit.camera.enabled = false;
-        this._cameraStairs.camera.enabled = false;
+        this._cameraStairsLeft.camera.enabled = false;
+        this._cameraStairsRight.camera.enabled = false;
         this._cameraRing.camera.enabled = false;
         this._canFade = false;
         this._cameraPitStoppedGame = false;
-        this._cameraStairsStoppedGame = false;
+        this._cameraStairsLeftStoppedGame = false;
+        this._cameraStairsRightStoppedGame = false;
     }
 
     void Update()
@@ -49,11 +55,12 @@ public class SwitchCameras : MonoBehaviour
         this._timeToShowCamera -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.F10)) _activeCameraPit = true;
-        if (Input.GetKeyDown(KeyCode.F11)) _activeCameraStairs = true;
+        if (Input.GetKeyDown(KeyCode.F11)) _activeCameraStairsLeft = true;
         if (Input.GetKeyDown(KeyCode.F12)) _activeCameraRing = true;
 
         StartCoroutine(ChangeToCameraPit());
-        StartCoroutine(ChangeToCameraStairs());
+        StartCoroutine(ChangeToCameraStairsLeft());
+        StartCoroutine(ChangeToCameraStairsRight());
         StartCoroutine(ChangeToCameraRing());
     }
 
@@ -96,20 +103,20 @@ public class SwitchCameras : MonoBehaviour
 
     }
 
-    private IEnumerator ChangeToCameraStairs()
+    private IEnumerator ChangeToCameraStairsLeft()
     {
-        if (_activeCameraStairs)
+        if (_activeCameraStairsLeft)
         {
-            if (!_cameraStairsStoppedGame)
+            if (!_cameraStairsLeftStoppedGame)
             {
                 EnabledDisableScripts();
-                this._cameraStairsStoppedGame = true;
+                this._cameraStairsLeftStoppedGame = true;
             }
             this._scriptFade.StartCoroutine(_scriptFade.FadeInOut(TIME_FADE));
             yield return new WaitForSeconds(TIME_FADE);
             this.camera.enabled = false;
-            this._cameraStairs.camera.enabled = true;
-            _activeCameraStairs = false;
+            this._cameraStairsLeft.camera.enabled = true;
+            _activeCameraStairsLeft = false;
             this._canFade = true;
         }
         else if (_timeToShowCamera < 0.0f)
@@ -120,12 +127,50 @@ public class SwitchCameras : MonoBehaviour
                 _canFade = false;
             }
             yield return new WaitForSeconds(TIME_FADE);
-            if (_cameraStairsStoppedGame)
+            if (_cameraStairsLeftStoppedGame)
             {
-                this._cameraStairs.camera.enabled = false;
+                this._cameraStairsLeft.camera.enabled = false;
+                Debug.Log("Camera LEft");
+                _activeCameraStairsRight = true;
+                this._cameraStairsLeftStoppedGame = false;
+                EnabledDisableScripts();
+                
+            }
+            _timeToShowCamera = TIMETOSHOWCAMERA;
+        }
+
+    }
+
+    private IEnumerator ChangeToCameraStairsRight()
+    {
+        if (_activeCameraStairsRight)
+        {
+            if (!_cameraStairsRightStoppedGame)
+            {
+                EnabledDisableScripts();
+                this._cameraStairsRightStoppedGame = true;
+            }
+            this._scriptFade.StartCoroutine(_scriptFade.FadeInOut(TIME_FADE));
+            yield return new WaitForSeconds(TIME_FADE);
+            this.camera.enabled = false;
+            this._cameraStairsRight.camera.enabled = true;
+            _activeCameraStairsRight = false;
+            this._canFade = true;
+        }
+        else if (_timeToShowCamera < 0.0f)
+        {
+            if (_canFade)           //Senão ele fica dando fade a cada 5 seg
+            {
+                this._scriptFade.StartCoroutine(_scriptFade.FadeInOut(TIME_FADE));
+                _canFade = false;
+            }
+            yield return new WaitForSeconds(TIME_FADE);
+            if (_cameraStairsRightStoppedGame)
+            {
+                this._cameraStairsRight.camera.enabled = false;
                 this.camera.enabled = true;
-                Debug.LogWarning("CAMERA MAIN: " + this.camera.enabled);
-                this._cameraStairsStoppedGame = false;
+                Debug.Log("Camera Right");
+                this._cameraStairsRightStoppedGame = false;
                 EnabledDisableScripts();
             }
             _timeToShowCamera = TIMETOSHOWCAMERA;
