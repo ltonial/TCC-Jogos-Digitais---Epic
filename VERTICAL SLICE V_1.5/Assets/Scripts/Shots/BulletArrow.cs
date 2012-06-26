@@ -40,6 +40,14 @@ public class BulletArrow : MonoBehaviour
     /// Camera do bullet time
     /// </summary>
     private GameObject _cameraBullet;
+    /// <summary>
+    /// The _decal.
+    /// </summary>
+    private GameObject _decal;
+    /// <summary>
+    /// The _sparks.
+    /// </summary>
+    private ParticleEmitter _sparks;
     #endregion
     #region Properties
     public int Damage
@@ -50,10 +58,11 @@ public class BulletArrow : MonoBehaviour
     #region Methods (Inherit)
     void Start()
     {
+        this._decal = (GameObject)Resources.Load ("Shots/Decal");
         this._cameraBullet = transform.FindChild("CameraBullet").gameObject;
         this._cameraMain = GameObject.FindGameObjectWithTag("MainCamera");
         this._menuPause = this._cameraMain.GetComponent<MenuPause>();
-
+        this._sparks = GetComponentInChildren<ParticleEmitter>();
         this._player = GameObject.FindGameObjectWithTag("Player");
         this._velocity = 15f;
         this._timeToDestroy = 15f;
@@ -69,13 +78,20 @@ public class BulletArrow : MonoBehaviour
 
             if (Physics.Raycast(this.transform.position, this.transform.forward, out this._hit, 0.3f))
             {
-            	if (this._hit.transform.tag == "Turret" && this._hit.transform.GetComponent<TurretManager>() != null)
-                	this._hit.transform.GetComponent<TurretManager>().Health.UpdateHealth(-this._damage);
-				if (this._hit.transform.tag == "Humanoid" && this._hit.transform.GetComponent<HumanoidManager>() != null)
-					this._hit.transform.GetComponent<HumanoidManager>().Health.UpdateHealth(-this._damage);
+                if (this._hit.transform.tag == "Turret" && this._hit.transform.GetComponent<TurretManager>() != null)
+                    this._hit.transform.GetComponent<TurretManager>().Health.UpdateHealth(-this._damage);
+                if (this._hit.transform.tag == "Humanoid" && this._hit.transform.GetComponent<HumanoidManager>() != null)
+                    this._hit.transform.GetComponent<HumanoidManager>().Health.UpdateHealth(-this._damage);
 
-                if(this._hit.transform.tag!="Player")
+                if(this._hit.transform.tag!="Player" && this._hit.transform.tag!="Decal") {
+                    GameObject decal = (GameObject)UnityEngine.GameObject.Instantiate(this._decal, this._hit.point, Quaternion.FromToRotation(Vector3.up, this._hit.normal));
+                    decal.transform.parent = this._hit.transform;
+                    this._sparks.transform.parent = this._hit.transform;
+                    this._sparks.transform.position = this._hit.point;
+                    this._sparks.transform.rotation = Quaternion.FromToRotation(Vector3.up, this._hit.normal);
+                    this._sparks.Emit();
                     Destroy(gameObject);
+                }
             }
             transform.Translate(Vector3.forward * this._velocity * Time.deltaTime);
         }

@@ -97,6 +97,7 @@
      <Compile Include="Assets\Scripts\Player\WeaponPlayer.cs" />
      <Compile Include="Assets\Scripts\Shots\BulletArrow.cs" />
      <Compile Include="Assets\Scripts\Shots\BulletGun.cs" />
+     <Compile Include="Assets\Scripts\Shots\DecalManager.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretHealth.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretManager.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretNavigationMesh.cs" />
