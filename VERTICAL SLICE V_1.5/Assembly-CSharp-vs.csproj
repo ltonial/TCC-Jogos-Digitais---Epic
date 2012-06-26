@@ -105,7 +105,12 @@
      <Compile Include="Assets\Scripts\Turret\TurretTracer.cs" />
      <Compile Include="Assets\Scripts\Turret\WaypointSystem.cs" />
      <Compile Include="Assets\Scripts\iTween\iTween.cs" />
+     <None Include="Assets\Shaders\Alpha-Reflective-Glossy-Liquido-Bomba.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\Shaders\Alpha-Reflective-Glossy-Liquido-Garrafa.shader" />
+     <None Include="Assets\Shaders\Transparent-RenderTExture.shader" />
+     <None Include="Assets\Shaders\TwoColor.shader" />
+     <None Include="Assets\Shaders\Alpha-Reflective-Glossy.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>

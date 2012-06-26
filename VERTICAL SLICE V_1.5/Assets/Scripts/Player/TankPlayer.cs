@@ -41,6 +41,18 @@ public class TankPlayer
     /// The _time to reload.
     /// </summary>
     private float _timeToReload;
+    /// <summary>
+    /// The _energy shot. Tubo de energia de tiro filho do Player.
+    /// </summary>
+    private GameObject _tankEnergyShot;
+    /// <summary>
+    /// The _energy life. Tubo de energia de vida filho do Player.
+    /// </summary>
+    private GameObject _tankEnergyLife;
+    /// <summary>
+    /// The _energy sump. Tubo de energia reserva filho do Player.
+    /// </summary>
+    private GameObject _tankEnergySump;
     #endregion
     #region Constructors
     /// <summary>
@@ -103,6 +115,12 @@ public class TankPlayer
         this.ChoiceSideEnergy = TankType.NONE;
         this._time = Time.deltaTime;
         this._timeToReload = .01f;
+        this._tankEnergyShot = GameObject.Find("TankEnergyShot");
+        this._tankEnergyShot.transform.localScale = new Vector3(1f,this._currentEnergyShot/MAXENERGYSHOT,1f);
+        this._tankEnergyLife = GameObject.Find("TankEnergyLife");
+        this._tankEnergyLife.transform.localScale = new Vector3(1f,this._currentEnergyLife/MAXENERGYLIFE,1f);
+        this._tankEnergySump = GameObject.Find("TankEnergySump");
+        this._tankEnergySump.transform.localScale = new Vector3(1f,this._currentEnergySump/MAXENERGYSUMP,1f);
     }
     public void Update()
     {
@@ -137,6 +155,7 @@ public class TankPlayer
                     this.ChoiceSideEnergy = TankType.NONE;
                 }
             }
+
         }
         else if (this.ChoiceSideEnergy == TankType.LIFE)
         {
@@ -154,6 +173,9 @@ public class TankPlayer
                 }
             }
         }
+        this._tankEnergyLife.transform.localScale = new Vector3(1f,((float)this._currentEnergyLife/(float)MAXENERGYLIFE),1f);
+        this._tankEnergyShot.transform.localScale = new Vector3(1f,((float)this._currentEnergyShot/(float)MAXENERGYSHOT),1f);
+        this._tankEnergySump.transform.localScale = new Vector3(1f,((float)this._currentEnergySump/(float)MAXENERGYSUMP),1f);
     }
     #endregion
 }
