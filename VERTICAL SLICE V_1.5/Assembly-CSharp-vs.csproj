@@ -84,6 +84,7 @@
      <Compile Include="Assets\Scripts\Menu\ExitItem.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuItem.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuManager.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuParaTesteSomTEMPORARIO.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuPause.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuStart.cs" />
      <Compile Include="Assets\Scripts\Menu\PlayItem.cs" />
