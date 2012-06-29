@@ -32,6 +32,10 @@ public class WeaponPlayer
     /// % de chance para disparar o bullet time
     /// </summary>
     private int _percentBulletTime;
+    /// <summary>
+    /// Som do tiro.
+    /// </summary>
+    private AudioClip _shotSound;
     #endregion
     #region Properties
     public float ReloadTimeBullet
@@ -65,6 +69,7 @@ public class WeaponPlayer
     {
         this._arrowGo = (GameObject)Resources.Load("Shots/BulletArrow");
         this._weaponGo = GameObject.FindGameObjectWithTag("ArrowPointer");
+        this._shotSound = (AudioClip)Resources.Load("Sounds/Player/ShotPlayer1");
         this._reloadTimeShot = .3f;
         this._reloadTimeBullet = 3f;
         this.Reloading = false;
@@ -83,6 +88,9 @@ public class WeaponPlayer
             this.Tank.EnergyShot--;
             RaycastHit hit;
             GameObject bullet = (GameObject)GameObject.Instantiate(this._arrowGo, this._weaponGo.transform.position, Camera.main.transform.rotation);
+
+            Camera.main.audio.clip = this._shotSound;
+            Camera.main.audio.Play();
 
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100f))
             {

@@ -18,6 +18,10 @@ public class TankPlayer
     /// </summary>
     private int _currentEnergyLife;
     /// <summary>
+    /// Salva a vida do player ate levar um dano. Utilizado para tocar som de dano quando recebe tiro.
+    /// </summary>
+    private int _previousLife;
+    /// <summary>
     /// Maxima energia de tiro do player
     /// </summary>
     private int _maxEnergyShot;
@@ -53,6 +57,22 @@ public class TankPlayer
     /// The _energy sump. Tubo de energia reserva filho do Player.
     /// </summary>
     private GameObject _tankEnergySump;
+    /// <summary>
+    /// Som de reload da energia do tiro.
+    /// </summary>
+    private AudioClip _shotReloadSound;
+    /// <summary>
+    /// Som de reload de vida.
+    /// </summary>
+    private AudioClip _healthReloadSound;
+    /// <summary>
+    /// Som de reload do tanque reserva.
+    /// </summary>
+    private AudioClip _sumpReloadSound;
+    /// <summary>
+    /// Som quando tomar dano.
+    /// </summary>
+    private AudioClip _gotDamageSound;
     #endregion
     #region Constructors
     /// <summary>
@@ -121,9 +141,15 @@ public class TankPlayer
         this._tankEnergyLife.transform.localScale = new Vector3(1f,this._currentEnergyLife/MAXENERGYLIFE,1f);
         this._tankEnergySump = GameObject.Find("TankEnergySump");
         this._tankEnergySump.transform.localScale = new Vector3(1f,this._currentEnergySump/MAXENERGYSUMP,1f);
+        this._shotReloadSound = (AudioClip)Resources.Load ("Sounds/Player/ShotReload");
+        this._healthReloadSound = (AudioClip)Resources.Load ("Sounds/Player/HealthReload");
+        this._sumpReloadSound = (AudioClip)Resources.Load ("Sounds/Player/SumpReload");
+        this._gotDamageSound = (AudioClip)Resources.Load ("Sounds/Player/GotDamage");
+        this._previousLife = this._currentEnergyLife;
     }
     public void Update()
     {
+
         if (this.ItemEnergy > 0)
         {
             if (Time.deltaTime > (this._time * this._timeToReload))
@@ -133,6 +159,8 @@ public class TankPlayer
                 {
                     this._currentEnergySump++;
                     this.ItemEnergy--;
+                    Camera.main.audio.clip = this._sumpReloadSound;
+                    Camera.main.audio.Play();
                 }
                 else
                 {
@@ -149,6 +177,8 @@ public class TankPlayer
                 {
                     this._currentEnergyShot++;
                     this._currentEnergySump--;
+                    Camera.main.audio.clip = this._shotReloadSound;
+                    Camera.main.audio.Play();
                 }
                 else
                 {
@@ -166,12 +196,19 @@ public class TankPlayer
                 {
                     this._currentEnergyLife++;
                     this._currentEnergySump--;
+                    this._previousLife = this._currentEnergyLife;
+                    Camera.main.audio.clip = this._healthReloadSound;
+                    Camera.main.audio.Play();
                 }
                 else
                 {
                     this.ChoiceSideEnergy = TankType.NONE;
                 }
             }
+        }else if(this._previousLife != this._currentEnergyLife) {
+            this._previousLife = this._currentEnergyLife;
+            Camera.main.audio.clip = this._gotDamageSound;
+            Camera.main.audio.Play();
         }
         this._tankEnergyLife.transform.localScale = new Vector3(1f,((float)this._currentEnergyLife/(float)MAXENERGYLIFE),1f);
         this._tankEnergyShot.transform.localScale = new Vector3(1f,((float)this._currentEnergyShot/(float)MAXENERGYSHOT),1f);

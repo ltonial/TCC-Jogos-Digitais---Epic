@@ -29,6 +29,15 @@ public class PlayerManager : MonoBehaviour
     /// The _bow object.
     /// </summary>
     private GameObject _bowObject;
+    /// <summary>
+    /// Testa se ja tocou o som de armar o arco.
+    /// </summary>
+    private bool _isPlayedBowAssembleSound;
+    /// <summary>
+    /// Som de armar arco.
+    /// </summary>
+    private AudioClip _bowAssembleSound;
+    
     #endregion
     #region Properties
     public TankPlayer Tank
@@ -40,6 +49,7 @@ public class PlayerManager : MonoBehaviour
     #region Methods
     void Start()
     {
+        this._bowAssembleSound = (AudioClip)Resources.Load ("Sounds/Player/BowAssemble");
         this._tank = new TankPlayer();
         this._tank.Start();
         this._weapon = new WeaponPlayer();
@@ -59,12 +69,23 @@ public class PlayerManager : MonoBehaviour
             //Se encontrar um computador, tenta hackear.
             TryFindComputer();
 
-            if (CurrentStatePlayer == StatePlayerType.AIM && Input.GetButtonDown(SHOT) && this._isReadyToShot)
+            if (CurrentStatePlayer == StatePlayerType.AIM)
             {
-                this._bowObject.animation.Play("BowShot");
-                this._weapon.Shot();
-                this._isReadyToShot = false;
-                StartCoroutine(this.ReloadShot());
+                //som de ativacao do arco
+                if(!this._isPlayedBowAssembleSound) {
+                    Camera.main.audio.clip = this._bowAssembleSound;
+                    Camera.main.audio.Play();
+                    this._isPlayedBowAssembleSound = true;
+                }
+                if(Input.GetButtonDown(SHOT) && this._isReadyToShot) {
+                    this._bowObject.animation.Play("BowShot");
+                    this._weapon.Shot();
+                    this._isReadyToShot = false;
+                    StartCoroutine(this.ReloadShot());
+                }
+            }else {
+                //cancela som
+                this._isPlayedBowAssembleSound = false;
             }
             
             if (this._tank.EnergySump > 0)

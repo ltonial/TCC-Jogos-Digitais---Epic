@@ -133,6 +133,14 @@ public class PlayerMovement : MonoBehaviour
     /// A altura alcançada no pulo
     /// </summary>
     private float _jumpHeight = 0.8f;
+    /// <summary>
+    /// Som do pulo.
+    /// </summary>
+    private AudioClip _jumpSound;
+    /// <summary>
+    /// Som de caminhar.
+    /// </summary>
+    private AudioClip _walkSound;
     #endregion
     #region Methods (Inherit)
     void Awake()
@@ -141,6 +149,8 @@ public class PlayerMovement : MonoBehaviour
         _myTransform = transform;
         _controller = GetComponent<CharacterController>();
         _currentState = State.INIT;
+        this._jumpSound = (AudioClip)Resources.Load ("Sounds/Player/Jump");
+        this._walkSound = (AudioClip)Resources.Load ("Sounds/Player/Walk");
     }
     void Update()
     {
@@ -355,6 +365,10 @@ public class PlayerMovement : MonoBehaviour
             if (_jumping)
             {
                 _jumping = false;
+
+                //toca som do pulo - nao sei se seria o melhor lugar para o audio
+                Camera.main.audio.clip = this._jumpSound;
+                Camera.main.audio.Play();
             }
         }
     }
@@ -457,10 +471,14 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Jump()
     {
+
         //animation.CrossFade("AxeSlash");
     }
     public void Walk()
     {
+        //som da caminhada
+//        Camera.main.audio.clip = this._walkSound;
+//        Camera.main.audio.Play();
         //animation.CrossFade("GoodWalk");
     }
     public void Run()
