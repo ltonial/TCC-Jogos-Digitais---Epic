@@ -73,8 +73,7 @@ public class PlayerManager : MonoBehaviour
             {
                 //som de ativacao do arco
                 if(!this._isPlayedBowAssembleSound) {
-                    Camera.main.audio.clip = this._bowAssembleSound;
-                    Camera.main.audio.Play();
+                    AudioSource.PlayClipAtPoint(this._bowAssembleSound, Camera.main.transform.position,1f);
                     this._isPlayedBowAssembleSound = true;
                 }
                 if(Input.GetButtonDown(SHOT) && this._isReadyToShot) {
@@ -83,9 +82,10 @@ public class PlayerManager : MonoBehaviour
                     this._isReadyToShot = false;
                     StartCoroutine(this.ReloadShot());
                 }
-            }else {
+            }else if(this._isPlayedBowAssembleSound) {
                 //cancela som
                 this._isPlayedBowAssembleSound = false;
+                AudioSource.PlayClipAtPoint(this._bowAssembleSound, Camera.main.transform.position,1f);
             }
             
             if (this._tank.EnergySump > 0)

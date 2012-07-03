@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TurretManager : MonoBehaviour
@@ -25,6 +26,17 @@ public class TurretManager : MonoBehaviour
     /// Recupera a energia.
     /// </summary>
     public TurretHealth Health { get { return this._health; } }
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is playing walk sound.
+    /// Utilizado para gerenciar o som do turret caminhando.
+    /// </summary>
+    /// <value>
+    /// <c>true</c> if this instance is playing walk sound; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsPlayingWalkSound {
+     get;
+     set;
+    }
     #endregion
     #region Methods (Inherit)
     /// <summary>
@@ -67,6 +79,12 @@ public class TurretManager : MonoBehaviour
 
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, TurretStateMachine.DISTANCELIMITTOEVADE);
+    }
+    #endregion
+    #region Coroutines
+    public IEnumerator TimeForWalk () {
+        yield return new WaitForSeconds(0.5f);
+        this.IsPlayingWalkSound = false;
     }
     #endregion
 }

@@ -141,6 +141,15 @@ public class PlayerMovement : MonoBehaviour
     /// Som de caminhar.
     /// </summary>
     private AudioClip _walkSound;
+    /// <summary>
+    /// The _is playing walk sound. Controla tempo para tocar som da caminhada.
+    /// </summary>
+    private bool _isPlayingWalkSound;
+    /// <summary>
+    /// The _jumped to sound. Utilizada para verificar se ja pulou para tocar o som do pulo.
+    /// Ver se realmente precisa dela.
+    /// </summary>
+    private bool _jumpedToSound;
     #endregion
     #region Methods (Inherit)
     void Awake()
@@ -151,6 +160,8 @@ public class PlayerMovement : MonoBehaviour
         _currentState = State.INIT;
         this._jumpSound = (AudioClip)Resources.Load ("Sounds/Player/Jump");
         this._walkSound = (AudioClip)Resources.Load ("Sounds/Player/Walk");
+        this._isPlayingWalkSound = false;
+        this._jumpedToSound = false;
     }
     void Update()
     {
@@ -366,9 +377,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 _jumping = false;
 
-                //toca som do pulo - nao sei se seria o melhor lugar para o audio
-                Camera.main.audio.clip = this._jumpSound;
-                Camera.main.audio.Play();
             }
         }
     }
@@ -422,6 +430,7 @@ public class PlayerMovement : MonoBehaviour
             // Incrementa a velocidade vertical (aplicada no pulo)		
             if (Time.time < _lastJumpButtonTime + _jumpTimeout)
             {
+                this._jumpedToSound = true;
                 _verticalSpeed = CalculateJumpVerticalSpeed(_jumpHeight);
             }
         }
@@ -435,9 +444,13 @@ public class PlayerMovement : MonoBehaviour
                 _jumpingReachedApex = true;
             }
 
-            if (IsGrounded())
+            if (IsGrounded()) {
                 _verticalSpeed = 0.0f;
-            else
+                if(this._jumpedToSound) {
+                    AudioSource.PlayClipAtPoint(this._jumpSound, Camera.main.transform.position,1f);
+                    this._jumpedToSound = false;
+                }
+            }else
                 _verticalSpeed -= _gravity * Time.deltaTime;
         }
     }
@@ -477,8 +490,11 @@ public class PlayerMovement : MonoBehaviour
     public void Walk()
     {
         //som da caminhada
-//        Camera.main.audio.clip = this._walkSound;
-//        Camera.main.audio.Play();
+        if(!this._isPlayingWalkSound) {
+            AudioSource.PlayClipAtPoint(this._walkSound, Camera.main.transform.position,1f);
+            this._isPlayingWalkSound = true;
+            StartCoroutine(TimeForWalk());
+        }
         //animation.CrossFade("GoodWalk");
     }
     public void Run()
@@ -490,6 +506,18 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.Log("Idle animation here");
         //animation.CrossFade("CombatStance");     //animação idle aqui
+    }
+    #endregion
+    #region Coroutines
+    /// <summary>
+    /// Times for walk. Controla velocidade do som da caminhada.
+    /// </summary>
+    /// <returns>
+    /// The for walk.
+    /// </returns>
+    IEnumerator TimeForWalk () {
+        yield return new WaitForSeconds(0.5f);
+        this._isPlayingWalkSound = false;
     }
     #endregion
 }

@@ -159,8 +159,7 @@ public class TankPlayer
                 {
                     this._currentEnergySump++;
                     this.ItemEnergy--;
-                    Camera.main.audio.clip = this._sumpReloadSound;
-                    Camera.main.audio.Play();
+                    AudioSource.PlayClipAtPoint(this._sumpReloadSound, Camera.main.transform.position,1f);
                 }
                 else
                 {
@@ -177,8 +176,7 @@ public class TankPlayer
                 {
                     this._currentEnergyShot++;
                     this._currentEnergySump--;
-                    Camera.main.audio.clip = this._shotReloadSound;
-                    Camera.main.audio.Play();
+                    AudioSource.PlayClipAtPoint(this._shotReloadSound, Camera.main.transform.position,1f);
                 }
                 else
                 {
@@ -197,8 +195,7 @@ public class TankPlayer
                     this._currentEnergyLife++;
                     this._currentEnergySump--;
                     this._previousLife = this._currentEnergyLife;
-                    Camera.main.audio.clip = this._healthReloadSound;
-                    Camera.main.audio.Play();
+                    AudioSource.PlayClipAtPoint(this._healthReloadSound, Camera.main.transform.position,1f);
                 }
                 else
                 {
@@ -207,8 +204,7 @@ public class TankPlayer
             }
         }else if(this._previousLife != this._currentEnergyLife) {
             this._previousLife = this._currentEnergyLife;
-            Camera.main.audio.clip = this._gotDamageSound;
-            Camera.main.audio.Play();
+            AudioSource.PlayClipAtPoint(this._gotDamageSound, Camera.main.transform.position,1f);
         }
         this._tankEnergyLife.transform.localScale = new Vector3(1f,((float)this._currentEnergyLife/(float)MAXENERGYLIFE),1f);
         this._tankEnergyShot.transform.localScale = new Vector3(1f,((float)this._currentEnergyShot/(float)MAXENERGYSHOT),1f);

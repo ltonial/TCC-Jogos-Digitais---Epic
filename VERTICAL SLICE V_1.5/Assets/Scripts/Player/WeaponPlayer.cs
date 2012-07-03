@@ -89,8 +89,7 @@ public class WeaponPlayer
             RaycastHit hit;
             GameObject bullet = (GameObject)GameObject.Instantiate(this._arrowGo, this._weaponGo.transform.position, Camera.main.transform.rotation);
 
-            Camera.main.audio.clip = this._shotSound;
-            Camera.main.audio.Play();
+            AudioSource.PlayClipAtPoint(this._shotSound, Camera.main.transform.position,1f);
 
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100f))
             {
