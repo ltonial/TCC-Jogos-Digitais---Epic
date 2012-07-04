@@ -51,6 +51,8 @@ public class Challenge3 : MonoBehaviour
             {
                 this._challenge.transform.Rotate(Vector3.up * Time.deltaTime * _velocityRotate, Space.World);
                 this._currentAngle += Time.deltaTime * _velocityRotate;
+                //Debug.Log("CHALLENGE 3 FINISHED");
+               // SwitchCameras._activeCameraRing = true;
 
                 if (this._currentAngle > MAXANGLE)
                 {

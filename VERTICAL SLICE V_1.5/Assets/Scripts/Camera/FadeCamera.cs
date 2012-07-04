@@ -81,11 +81,9 @@ public class FadeCamera : MonoBehaviour
 
     public IEnumerator FadeInOut(float fadeDuration)
     {
-        Debug.LogWarning("::FadeIn::");
         m_TargetScreenOverlayColor = Color.black;
         m_DeltaColor = (m_TargetScreenOverlayColor - m_CurrentScreenOverlayColor) / 1.0f;
         yield return new WaitForSeconds(fadeDuration);
-        Debug.LogWarning("::FadeIn Finished::");
         m_TargetScreenOverlayColor = Color.clear;
         m_DeltaColor = (m_TargetScreenOverlayColor - m_CurrentScreenOverlayColor) / 1.0f;
     }
