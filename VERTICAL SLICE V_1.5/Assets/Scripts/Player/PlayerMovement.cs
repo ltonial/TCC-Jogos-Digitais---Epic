@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
 	/// The _my transform.
 	/// </summary>
     private Transform _myTransform;
+    	/// <summary>
+	/// The _controller.
+	/// </summary>
+    private bool _isBoxing = false;
 	/// <summary>
 	/// The _controller.
 	/// </summary>
@@ -223,6 +227,10 @@ public class PlayerMovement : MonoBehaviour
     public void MovementHorizontal(TurnType x)
     {
         _currentTurn = x;
+        //if(_currentTurn == TurnType.LEFT)
+        //    animation.CrossFade("strafe_left");
+        //if (_currentTurn == TurnType.RIGHT)
+        //    animation.CrossFade("strafe_right");
     }
     /// <summary>
     /// Habilita o pulo do jogador 
@@ -231,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
     public void JumpMe()
     {
         _jumping = true;
+        JumpAnimation();
         _lastJumpButtonTime = Time.time;
     }
     /// <summary>
@@ -482,31 +491,46 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("Fall animation here");
         //animation.CrossFade("fall");
     }
-    public void Jump()
+    public void JumpAnimation()
     {
-
-        //animation.CrossFade("AxeSlash");
+        animation.CrossFade("jump");
     }
     public void Walk()
     {
         //som da caminhada
-        if(!this._isPlayingWalkSound) {
-            AudioSource.PlayClipAtPoint(this._walkSound, Camera.main.transform.position,1f);
-            this._isPlayingWalkSound = true;
-            StartCoroutine(TimeForWalk());
-        }
-        //animation.CrossFade("GoodWalk");
+        //if(!this._isPlayingWalkSound) {
+        //    AudioSource.PlayClipAtPoint(this._walkSound, Camera.main.transform.position,1f);
+        //    this._isPlayingWalkSound = true;
+        //    StartCoroutine(TimeForWalk());
+        //}
+        if (!animation.IsPlaying("jump"))
+            animation.CrossFade("run");
     }
     public void Run()
     {
-        //Debug.Log("Run animation here");
-        //animation.CrossFade("GoodWalk");
+        if (!animation.IsPlaying("jump"))
+            animation.CrossFade("run");
     }
     public void Idle()
     {
-        //Debug.Log("Idle animation here");
-        //animation.CrossFade("CombatStance");     //animação idle aqui
+        if ((_currentDirection == DirectionType.NONE && !animation.IsPlaying("jump")) &&
+            (PlayerManager.CurrentStatePlayer != StatePlayerType.AIM || !_isBoxing))
+        {
+            AnimationState newIdle = animation.CrossFadeQueued("idle", 0f, QueueMode.CompleteOthers);
+            newIdle.wrapMode = WrapMode.PingPong;
+            newIdle.speed = 0.5f;
+        }
     }
+
+    //public void CombatAnimations(ComboType combo)
+    //{
+    //    if (combo == ComboType.PUNCH)
+    //        animation.CrossFade("punch");
+    //    else if (combo == ComboType.DOUBLEPUNCH)
+    //        animation.CrossFade("double_punch");
+    //    else if (combo == ComboType.GODSHAND)
+    //        animation.CrossFade("gods_hand");
+    //}
     #endregion
     #region Coroutines
     /// <summary>

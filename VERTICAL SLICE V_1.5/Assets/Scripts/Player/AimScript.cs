@@ -13,7 +13,6 @@ public class AimScript : MonoBehaviour
     void Start()
     {
         this._playerManager = gameObject.GetComponent<PlayerManager>();
-
         this._bowObject = transform.FindChild("Bow").gameObject;
         this._bowObject.active = false;
         this._auxBowObjects = GameObject.FindGameObjectsWithTag("AuxBow").ToList();
@@ -34,6 +33,8 @@ public class AimScript : MonoBehaviour
     {
         if (PlayerManager.CurrentStatePlayer == StatePlayerType.AIM && !this._playerManager.Weapon.IsShot)
         {
+            animation.CrossFade("aim");
+            animation["aim"].wrapMode = WrapMode.ClampForever;
             gameObject.guiTexture.enabled = true;
             GUI.DrawTexture(gameObject.guiTexture.pixelInset, gameObject.guiTexture.texture);
         }

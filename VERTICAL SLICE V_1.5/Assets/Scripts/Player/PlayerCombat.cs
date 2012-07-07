@@ -15,6 +15,7 @@ public class PlayerCombat : MonoBehaviour
 	private CombatCombo puch = new CombatCombo (new string[] { PUNCH });
 	private CombatCombo doublePunch = new CombatCombo (new string[] { PUNCH, PUNCH });
 	private CombatCombo godsHand = new CombatCombo (new string[] { PUNCH, PUNCH, PUNCH });
+    private const string METHOD_COMBAT_ANIMATIONS = "CombatAnimations";
 	public static List<HumanoidManager> HumanoidsList;
     #endregion
     #region Methods (Inherit)
@@ -63,8 +64,8 @@ public class PlayerCombat : MonoBehaviour
 	{
 		if (PlayerManager.CurrentStatePlayer != StatePlayerType.AIM)
 		{
-			if (puch.Check ())
-				Attack (ComboType.PUNCH);
+            if (puch.Check())
+                Attack(ComboType.PUNCH);
 			if (doublePunch.Check ())
 				Attack (ComboType.DOUBLEPUNCH);
 			if (godsHand.Check ())
@@ -73,7 +74,14 @@ public class PlayerCombat : MonoBehaviour
 	}
 	private void Attack (ComboType combo)
 	{
-		//Debug.Log (combo);
+        if (combo == ComboType.PUNCH)
+            animation.CrossFade("punch");
+        else if (combo == ComboType.DOUBLEPUNCH)
+            animation.CrossFade("double_punch");
+        else if (combo == ComboType.GODSHAND)
+            animation.CrossFade("gods_hand");
+        //SendMessage(METHOD_COMBAT_ANIMATIONS, combo);
+
 		foreach (HumanoidManager humanoid in HumanoidsList) {
 			float distance = Vector3.Distance (humanoid.MyTransform.position, transform.position);
 			Vector3 dir = (humanoid.MyTransform.position - transform.position).normalized;

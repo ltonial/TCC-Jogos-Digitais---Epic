@@ -77,6 +77,8 @@ public class PlayerManager : MonoBehaviour
                     this._isPlayedBowAssembleSound = true;
                 }
                 if(Input.GetButtonDown(SHOT) && this._isReadyToShot) {
+                    animation.Stop("aim");
+                    animation.CrossFade("shot");
                     this._bowObject.animation.Play("BowShot");
                     this._weapon.Shot();
                     this._isReadyToShot = false;
@@ -86,6 +88,7 @@ public class PlayerManager : MonoBehaviour
                 //cancela som
                 this._isPlayedBowAssembleSound = false;
                 AudioSource.PlayClipAtPoint(this._bowAssembleSound, Camera.main.transform.position,1f);
+                animation.Stop("aim");
             }
             
             if (this._tank.EnergySump > 0)
