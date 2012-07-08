@@ -74,13 +74,12 @@ public class PlayerCombat : MonoBehaviour
 	}
 	private void Attack (ComboType combo)
 	{
-        if (combo == ComboType.PUNCH)
-            animation.CrossFade("punch");
-        else if (combo == ComboType.DOUBLEPUNCH)
-            animation.CrossFade("double_punch");
-        else if (combo == ComboType.GODSHAND)
+        if (combo == ComboType.PUNCH && !animation.IsPlaying("gods_hand"))
+           animation.CrossFade("punch");
+        if (combo == ComboType.DOUBLEPUNCH && !animation.IsPlaying("gods_hand"))
+           animation.CrossFade("double_punch");
+        if (combo == ComboType.GODSHAND)
             animation.CrossFade("gods_hand");
-        //SendMessage(METHOD_COMBAT_ANIMATIONS, combo);
 
 		foreach (HumanoidManager humanoid in HumanoidsList) {
 			float distance = Vector3.Distance (humanoid.MyTransform.position, transform.position);
