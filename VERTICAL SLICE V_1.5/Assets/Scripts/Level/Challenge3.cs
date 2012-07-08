@@ -24,17 +24,21 @@ public class Challenge3 : MonoBehaviour
     /// Velocidade da rotação do anel
     /// </summary>
     private float _velocityRotate;
+    /// <summary>
+    /// The _list computer.
+    /// </summary>
+    private List<ComputerManager> _listComputer = new List<ComputerManager>();
     #endregion
     #region Methods (Inherit)
     void Start ()
     {
-        this._activeRotate = true;
+        //this._activeRotate = true;
         this._velocityRotate = 10f;
         this._currentAngle = 0f;
 
         this._challenge = GameObject.FindGameObjectWithTag("Challenge3");
 
-        GameObject[] auxTerminals = GameObject.FindGameObjectsWithTag("ComputerTurnDoor");
+        GameObject[] auxTerminals = GameObject.FindGameObjectsWithTag("ComputerTurnRing");
         foreach (GameObject item in auxTerminals) {
             this._terminalList.Add (item.GetComponent<ComputerManager>());
         }
@@ -43,9 +47,10 @@ public class Challenge3 : MonoBehaviour
     {
         if (!MenuPause.Paused)
         {
-            int computersHacked = this._terminalList.Count(t => t.WasHacked);
-            if (computersHacked == COMPUTERS_NEED_HACK)
-                this._activeRotate = true;
+            //int computersHacked = this._terminalList.Count(t => t.WasHacked);
+            //Debug.Log("HACKED: " + computersHacked);
+            //if (computersHacked == COMPUTERS_NEED_HACK)
+                //this._activeRotate = true;
 
             if (this._activeRotate)
             {
@@ -58,9 +63,21 @@ public class Challenge3 : MonoBehaviour
                 {
                     this._currentAngle = 0f;
                     this._activeRotate = false;
+                    this._listComputer.ForEach(c => c.OnUnhackedBehaviour());
                 }
             }
         }
+    }
+    /// <summary>
+    /// Actives the rotate.
+    /// </summary>
+    /// <param name='pComputer'>
+    /// P computer.
+    /// </param>
+    public void ActiveRotate(ComputerManager pComputer)
+    {
+        this._activeRotate = true;
+        this._listComputer.Add(pComputer);
     }
     #endregion
 }

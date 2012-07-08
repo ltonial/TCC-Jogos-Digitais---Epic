@@ -130,7 +130,7 @@ public class SwitchCameras : MonoBehaviour
             if (_cameraStairsLeftStoppedGame)
             {
                 this._cameraStairsLeft.camera.enabled = false;
-                Debug.Log("Camera LEft");
+                //Debug.Log("Camera LEft");
                 _activeCameraStairsRight = true;
                 this._cameraStairsLeftStoppedGame = false;
                 EnabledDisableScripts();
@@ -169,7 +169,7 @@ public class SwitchCameras : MonoBehaviour
             {
                 this._cameraStairsRight.camera.enabled = false;
                 this.camera.enabled = true;
-                Debug.Log("Camera Right");
+                //Debug.Log("Camera Right");
                 this._cameraStairsRightStoppedGame = false;
                 EnabledDisableScripts();
             }

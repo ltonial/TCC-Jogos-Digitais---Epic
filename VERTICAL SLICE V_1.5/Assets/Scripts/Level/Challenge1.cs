@@ -32,7 +32,7 @@ public class Challenge1 : MonoBehaviour
                 this._challengeList.ForEach(c => c.active = true);
                 this._turretsList.ForEach(t => t.GetComponent<TurretManager>().enabled = true);
                 this.enabled = false;
-                Debug.Log("CHALLENGE 1 FINISHED");
+                //Debug.Log("CHALLENGE 1 FINISHED");
                 SwitchCameras._activeCameraPit = true;
             }
 		}

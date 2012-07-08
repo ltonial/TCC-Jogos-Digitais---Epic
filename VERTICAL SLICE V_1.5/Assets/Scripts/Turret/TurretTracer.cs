@@ -124,7 +124,7 @@ public class TurretTracer
 
         if (Physics.Raycast(this._ray, out this._hit, 1f))
         {
-            if (this._hit.transform.tag == "Computer")
+            if (this._hit.transform.tag.Contains("Computer"))
                 return true;
         }
 

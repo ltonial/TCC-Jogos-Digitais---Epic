@@ -33,7 +33,7 @@ public class Challenge2 : MonoBehaviour
 			if (computersHacked == COMPUTERS_NEED_HACK)
 			{
 				this._challengeList.ForEach(c => c.active = true);
-                Debug.Log("CHALLENGE 2 FINISHED");
+                //Debug.Log("CHALLENGE 2 FINISHED");
                 SwitchCameras._activeCameraStairsLeft = true;
                 this.enabled = false;
 			}
