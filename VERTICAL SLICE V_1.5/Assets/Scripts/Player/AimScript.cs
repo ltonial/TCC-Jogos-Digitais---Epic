@@ -5,7 +5,6 @@ using UnityEngine;
 public class AimScript : MonoBehaviour
 {
     #region Attributes
-    private GameObject _bowObject;
     private List<GameObject> _auxBowObjects;
     private PlayerManager _playerManager;
     #endregion
@@ -13,8 +12,6 @@ public class AimScript : MonoBehaviour
     void Start()
     {
         this._playerManager = gameObject.GetComponent<PlayerManager>();
-        this._bowObject = transform.FindChild("Bow").gameObject;
-        this._bowObject.active = false;
         this._auxBowObjects = GameObject.FindGameObjectsWithTag("AuxBow").ToList();
         this._auxBowObjects.ForEach(b => b.active = false);
 
@@ -26,7 +23,6 @@ public class AimScript : MonoBehaviour
     }
     void Update()
     {
-        this._bowObject.active = PlayerManager.CurrentStatePlayer == StatePlayerType.AIM;
         this._auxBowObjects.ForEach(b => b.active = PlayerManager.CurrentStatePlayer == StatePlayerType.AIM);
     }
     void OnGUI()

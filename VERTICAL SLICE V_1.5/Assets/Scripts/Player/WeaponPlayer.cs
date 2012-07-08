@@ -68,7 +68,7 @@ public class WeaponPlayer
     public void Start()
     {
         this._arrowGo = (GameObject)Resources.Load("Shots/BulletArrow");
-        this._weaponGo = GameObject.FindGameObjectWithTag("ArrowPointer");
+        this._weaponGo = GameObject.Find("RightHand");
         this._shotSound = (AudioClip)Resources.Load("Sounds/Player/ShotPlayer1");
         this._reloadTimeShot = .3f;
         this._reloadTimeBullet = 3f;

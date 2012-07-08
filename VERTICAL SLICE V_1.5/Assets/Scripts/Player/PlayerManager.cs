@@ -26,10 +26,6 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private bool _isReadyToShot;
     /// <summary>
-    /// The _bow object.
-    /// </summary>
-    private GameObject _bowObject;
-    /// <summary>
     /// Testa se ja tocou o som de armar o arco.
     /// </summary>
     private bool _isPlayedBowAssembleSound;
@@ -57,8 +53,6 @@ public class PlayerManager : MonoBehaviour
 
         this._weapon.Tank = this._tank;
         this._isReadyToShot = true;
-
-        this._bowObject = transform.FindChild("Bow").gameObject;
     }
     void Update()
     {
@@ -79,7 +73,6 @@ public class PlayerManager : MonoBehaviour
                 if(Input.GetButtonDown(SHOT) && this._isReadyToShot) {
                     animation.Stop("aim");
                     animation.CrossFade("shot");
-                    this._bowObject.animation.Play("BowShot");
                     this._weapon.Shot();
                     this._isReadyToShot = false;
                     StartCoroutine(this.ReloadShot());
