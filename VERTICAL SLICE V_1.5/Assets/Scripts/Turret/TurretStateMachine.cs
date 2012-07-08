@@ -286,6 +286,8 @@ public class TurretStateMachine
             case FiniteStateMachineType.EVADE:
                 //TODO:Criar sistema de fuga e defesa contra o player!!!
                 this.SetNewState(FiniteStateMachineType.ALERT);
+                //this._navigationMesh.SetDestination(this._target.position,
+                    //SPEEDCHASE, ACCELERATIONCHASE, ANGULARCHASE, STOPPINGDISTANCECHASE);
                 break;
             case FiniteStateMachineType.FIGHT:
             case FiniteStateMachineType.SHOT:

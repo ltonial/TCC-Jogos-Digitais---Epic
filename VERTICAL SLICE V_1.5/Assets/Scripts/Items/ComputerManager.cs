@@ -23,6 +23,7 @@ public class ComputerManager : MonoBehaviour
     private Transform _screenTransform;
     private Light _lightObject;
     private Challenge3 _challengeRing;
+    private Challenge4 _challengeFinal;
     #endregion
     #region Properties
     public int TotalSpawn
@@ -61,7 +62,8 @@ public class ComputerManager : MonoBehaviour
 
         GameObject aux = GameObject.Find("Level");
         this._challengeRing = aux.transform.GetComponent<Challenge3>();
-        //Debug.Log("C3: " + this._challengeRing.IsActiveRotate);
+        this._challengeFinal = gameObject.transform.GetComponent<Challenge4>();
+        //Debug.Log("4: " + this._challengeFinal);
 
         this.ChangeTextureAndLight(this._desactivatedMaterial, Color.yellow);
     }
@@ -91,8 +93,11 @@ public class ComputerManager : MonoBehaviour
         if (!this._wasActivatedSpawn)
         {
             this._wasHacked = true;
+
             if (gameObject.transform.tag == "ComputerTurnRing")
                 this._challengeRing.ActiveRotate(this);
+            else if (gameObject.transform.tag == "ComputerFinal")
+                this._challengeFinal.ActiveRotate(this);
 
             ChangeTextureAndLight(this._hackedMaterial, Color.blue);
         }

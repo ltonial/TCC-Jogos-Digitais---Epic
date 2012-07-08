@@ -62,7 +62,7 @@ public class HumanoidHealth
     public void Update()
     {
         this.UpdateHealth(0);
-		this._textHealth.text = this._currentHealth.ToString();
+		this._textHealth.text = string.Empty; //this._currentHealth.ToString();
     }
     /// <summary>
     /// Ajusta a energia do inimigo.

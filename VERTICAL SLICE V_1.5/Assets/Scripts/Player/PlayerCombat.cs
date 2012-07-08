@@ -23,11 +23,17 @@ public class PlayerCombat : MonoBehaviour
     private bool _punchHitOnGround = false;
     #endregion
     #region Methods (Inherit)
+    /// <summary>
+    /// Start this instance.
+    /// </summary>
     void Start()
     {
         this._player = GameObject.FindWithTag("Player");
         this._turrets = GameObject.FindGameObjectsWithTag("Turret");
     }
+    /// <summary>
+    /// Update this instance.
+    /// </summary>
     void Update()
     {
         CheckAttack();
@@ -52,7 +58,12 @@ public class PlayerCombat : MonoBehaviour
                 Attack(ComboType.GODSHAND);
         }
     }
-
+    /// <summary>
+    /// Raises the trigger enter event.
+    /// </summary>
+    /// <param name='collider'>
+    /// Collider.
+    /// </param>
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "Humanoid")
@@ -83,9 +94,15 @@ public class PlayerCombat : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Attack the specified combo.
+    /// </summary>
+    /// <param name='combo'>
+    /// Combo.
+    /// </param>
     private void Attack(ComboType combo)
     {
+        /*
         foreach (GameObject turret in _turrets)
         {
             float distance = Vector3.Distance(turret.transform.position, _player.transform.position);
@@ -108,7 +125,7 @@ public class PlayerCombat : MonoBehaviour
                 }
             }
 
-        }
+        }*/
 
         if (combo == ComboType.PUNCH && !_player.animation.IsPlaying("gods_hand") && !_punchHitOnGround)
         {
@@ -132,6 +149,5 @@ public class PlayerCombat : MonoBehaviour
             _player.animation.CrossFade("gods_hand");
         }
     }
-
     #endregion
 }

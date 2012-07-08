@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Camera\FadeCamera.cs" />
      <Compile Include="Assets\Scripts\Camera\SwitchCameras.cs" />
      <Compile Include="Assets\Scripts\Enemies\RagdollBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Enemies\SpawnTower.cs" />
      <Compile Include="Assets\Scripts\Enumerations\BehaviourType.cs" />
      <Compile Include="Assets\Scripts\Enumerations\ComboType.cs" />
      <Compile Include="Assets\Scripts\Enumerations\ComputerType.cs" />
@@ -70,11 +71,13 @@
      <Compile Include="Assets\Scripts\Items\Item.cs" />
      <Compile Include="Assets\Scripts\Items\ItemIdentificator.cs" />
      <Compile Include="Assets\Scripts\Items\ItemIdentificatorManager.cs" />
+     <Compile Include="Assets\Scripts\Items\RingManager.cs" />
      <Compile Include="Assets\Scripts\Items\SmokeTurretDeath.cs" />
      <Compile Include="Assets\Scripts\Items\Waypoint.cs" />
      <Compile Include="Assets\Scripts\Level\Challenge1.cs" />
      <Compile Include="Assets\Scripts\Level\Challenge2.cs" />
      <Compile Include="Assets\Scripts\Level\Challenge3.cs" />
+     <Compile Include="Assets\Scripts\Level\Challenge4.cs" />
      <Compile Include="Assets\Scripts\Level\LabyrinthManager.cs" />
      <Compile Include="Assets\Scripts\Level\LiftMovement.cs" />
      <Compile Include="Assets\Scripts\Menu\AutoFade.cs" />

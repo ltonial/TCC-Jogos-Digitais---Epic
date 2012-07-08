@@ -7,7 +7,7 @@ public class Challenge3 : MonoBehaviour
 {
     #region Constants
     private const int COMPUTERS_NEED_HACK = 2;
-    private const float MAXANGLE = 90f;
+    private const float MAXANGLE = 45f;
     #endregion
     #region Attributes
     private GameObject _challenge;
