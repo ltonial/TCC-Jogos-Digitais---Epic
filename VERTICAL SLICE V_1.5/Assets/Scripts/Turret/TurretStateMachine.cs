@@ -81,10 +81,18 @@ public class TurretStateMachine
     /// </summary>
     private float _idleTime;
     private float _patrolTIme;
-        /// <summary>
+    /// <summary>
     /// The _terminal spawn.
     /// </summary>
     private List<ComputerManager> _computerSpawnList = new List<ComputerManager>();
+    /// <summary>
+    /// The _gun object.
+    /// </summary>
+    private GameObject _gunObject;
+    /// <summary>
+    /// Arma/Tiro.
+    /// </summary>
+    private TurretGun _gun;
     #endregion
     #region Constructors
     /// <summary>
@@ -107,6 +115,9 @@ public class TurretStateMachine
 
         this._waypointSystem = new WaypointSystem(this._myTransform, this._target);
         this._navigationMesh = new TurretNavigationMesh(this._myTransform, this._myTransform.GetComponent<NavMeshAgent>());
+
+        this._gunObject = this._myTransform.FindChild("Cabeca").FindChild("Camera").gameObject;
+        this._gun = new TurretGun(this._gunObject);
     }
     #endregion
     #region Properties
@@ -166,17 +177,17 @@ public class TurretStateMachine
     {
         // Se a distância for menor que o limite para se defender.
         if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade)// && pDistanceY < WORLDPOSITION_Y)
-            this.SetNewState(FiniteStateMachineType.EVADE);
+            this.SetNewState(FiniteStateMachineType.EVADE, pDeltaTime);
         // Se enxergar o target.
-        else if (this._tracer.HithingTarget) this.SetNewState(FiniteStateMachineType.ALERT);
+        else if (this._tracer.HithingTarget) this.SetNewState(FiniteStateMachineType.ALERT, pDeltaTime);
         // Se a distância for menor que o limite para perseguir.
         else if (pDistanceToTarget < this._distanceLimitToChasing)// && pDistanceY < WORLDPOSITION_Y)
-            this.SetNewState(FiniteStateMachineType.CHASE);
+            this.SetNewState(FiniteStateMachineType.CHASE, pDeltaTime);
         // Senão decrementa o tempo para mudar para patrulhando.
         else
         {
             this._idleTime -= pDeltaTime;
-            if (this._idleTime <= 0) this.SetNewState(FiniteStateMachineType.PATROL);
+            if (this._idleTime <= 0) this.SetNewState(FiniteStateMachineType.PATROL, pDeltaTime);
         }
     }
     /// <summary>
@@ -186,17 +197,17 @@ public class TurretStateMachine
     {
         // Se a distância for menor que o limite para se defender.
         if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade)// && pDistanceY < WORLDPOSITION_Y)
-            this.SetNewState(FiniteStateMachineType.EVADE);
+            this.SetNewState(FiniteStateMachineType.EVADE, pDeltaTime);
         // Se enxergar o target.
-        else if (this._tracer.HithingTarget) this.SetNewState(FiniteStateMachineType.ALERT);
+        else if (this._tracer.HithingTarget) this.SetNewState(FiniteStateMachineType.ALERT, pDeltaTime);
         // Se a distância for menor que o limite para perseguir.
         else if (pDistanceToTarget < this._distanceLimitToChasing)// && pDistanceY < WORLDPOSITION_Y)
-            this.SetNewState(FiniteStateMachineType.CHASE);
+            this.SetNewState(FiniteStateMachineType.CHASE, pDeltaTime);
         // Senão decrementa o tempo para mudar para patrulhando.
         else
         {
             this._patrolTIme -= pDeltaTime;
-            if (this._patrolTIme <= 0) this.SetNewState(FiniteStateMachineType.IDLE);
+            if (this._patrolTIme <= 0) this.SetNewState(FiniteStateMachineType.IDLE, pDeltaTime);
         }
     }
     /// <summary>
@@ -206,7 +217,7 @@ public class TurretStateMachine
     {
         // Se enxergar o target.
         if (this._tracer.HithingTarget)
-            this.SetNewState(FiniteStateMachineType.ALERT);
+            this.SetNewState(FiniteStateMachineType.ALERT, pDeltaTime);
         else //Atualiza a navegação.
             this._navigationMesh.SetDestination(this._target.position, SPEEDCHASE, ACCELERATIONCHASE, ANGULARCHASE, STOPPINGDISTANCECHASE);
     }
@@ -217,16 +228,16 @@ public class TurretStateMachine
     {
         // Se enxergar o player ou se a distância for menor que o limite para se defender.
         if (this._tracer.HithingTarget && pDistanceToTarget < this._distanceLimitToEvade)// && pDistanceY < WORLDPOSITION_Y)
-            this.SetNewState(FiniteStateMachineType.EVADE);
+            this.SetNewState(FiniteStateMachineType.EVADE, pDeltaTime);
 
         //Se encontrar um computador
         if (this._tracer.TryFindComputer())
-            this.SetComputerSpawn(this._tracer.Hit.transform.GetComponent<ComputerManager>());
+            this.SetComputerSpawn(this._tracer.Hit.transform.GetComponent<ComputerManager>(), pDeltaTime);
         else if (this._waypointSystem.NearComputer != null)
         {
             float auxDistance = Vector2.Distance(this._myTransform.position, this._waypointSystem.NearComputer.GameObject.transform.position);
             if (auxDistance <= 2f)
-                this.SetComputerSpawn(this._waypointSystem.NearComputer.GameObject.transform.GetComponent<ComputerManager>());
+                this.SetComputerSpawn(this._waypointSystem.NearComputer.GameObject.transform.GetComponent<ComputerManager>(), pDeltaTime);
         }
     }
     /// <summary>
@@ -236,7 +247,7 @@ public class TurretStateMachine
     {
         // Se a distância para o computador for menor que a do player.
         if (Vector3.Distance(this._myTransform.position, this._waypointSystem.NearComputer.GameObject.transform.position) <= Vector3.Distance(this._myTransform.position, this._target.position))
-            this.SetNewState(FiniteStateMachineType.ALERT);
+            this.SetNewState(FiniteStateMachineType.ALERT, pDeltaTime);
     }
     /*/// <summary>
     /// Atualiza a movimentação
@@ -257,7 +268,7 @@ public class TurretStateMachine
     /// Seta o novo comportamento.
     /// </summary>
     /// <param name="pNewStateMachine"></param>
-    public void SetNewState(FiniteStateMachineType pNewStateMachine)
+    public void SetNewState(FiniteStateMachineType pNewStateMachine, float pDeltaTime)
     {
         //Novo estado.
         this._currentState = pNewStateMachine;
@@ -285,9 +296,9 @@ public class TurretStateMachine
                 break;
             case FiniteStateMachineType.EVADE:
                 //TODO:Criar sistema de fuga e defesa contra o player!!!
-                this.SetNewState(FiniteStateMachineType.ALERT);
-                //this._navigationMesh.SetDestination(this._target.position,
-                    //SPEEDCHASE, ACCELERATIONCHASE, ANGULARCHASE, STOPPINGDISTANCECHASE);
+                //this.SetNewState(FiniteStateMachineType.ALERT);
+                this._navigationMesh.SetDestination(this._target.position,
+                    SPEEDCHASE, ACCELERATIONCHASE, ANGULARCHASE, STOPPINGDISTANCECHASE);
                 break;
             case FiniteStateMachineType.FIGHT:
             case FiniteStateMachineType.SHOT:
@@ -295,6 +306,9 @@ public class TurretStateMachine
                 Debug.LogWarning(">> [FIGHT|SHOT|BUILD] FSM incompatível com o personagem Turret! <<");
                 break;
         }
+
+        //Atirando...
+        this.UpdateShot(pDeltaTime);
     }
     /// <summary>
     /// Se encontrou um waypoint.
@@ -315,12 +329,12 @@ public class TurretStateMachine
     /// <param name='pComputer'>
     /// P computer.
     /// </param>
-    public void SetComputerSpawn(ComputerManager pComputer)
+    public void SetComputerSpawn(ComputerManager pComputer, float pDeltaTime)
     {
         pComputer.OnSpawnBehaviour();
         this._computerSpawnList.Add(pComputer);
 
-        this.SetNewState(FiniteStateMachineType.PATROL);
+        this.SetNewState(FiniteStateMachineType.PATROL, pDeltaTime);
     }
     /// <summary>
     /// 
@@ -328,6 +342,13 @@ public class TurretStateMachine
     public void FreeComputerSpawn()
     {
         this._computerSpawnList.ForEach(c => c.WasActivatedSpawn = false);
+    }
+    /// <summary>
+    /// Atualização de tiro.
+    /// </summary>
+    private void UpdateShot(float pDeltaTime)
+    {
+        this._gun.UpdateShot(pDeltaTime);
     }
     #endregion
 }

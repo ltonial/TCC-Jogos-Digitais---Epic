@@ -6,16 +6,22 @@ public class SmokeTurretDeath : MonoBehaviour
     /// <summary>
     /// The _item turret.
     /// </summary>
-    private GameObject _energyItem;
+    //private GameObject _energyItem;
+    /// <summary>
+    /// Prefab da munição.
+    /// </summary>
+    private GameObject _turretObject;
+
     void Start()
 	{
-        this._energyItem = (GameObject)Resources.Load("Items/EnergyItem");
-        StartCoroutine(this.InstanciarItem());
+        this._turretObject = (GameObject)Resources.Load("Enemies/Turret");
+        //this._energyItem = (GameObject)Resources.Load("Items/EnergyItem");
+        StartCoroutine(this.Respawn());
     }
-    IEnumerator InstanciarItem() 
+    IEnumerator Respawn()
 	{
-        yield return new WaitForSeconds(3f);
-        Instantiate(this._energyItem,this.transform.position,Quaternion.identity);
+        yield return new WaitForSeconds(15f);
+        Instantiate(this._turretObject,this.transform.position,Quaternion.identity);
         this.GetComponent<ParticleEmitter>().minSize=0f;
         this.GetComponent<ParticleEmitter>().maxSize=0f;
         Destroy(this.gameObject, 10f);

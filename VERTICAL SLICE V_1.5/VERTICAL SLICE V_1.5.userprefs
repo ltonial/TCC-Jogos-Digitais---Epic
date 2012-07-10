@@ -1,32 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Turret\TurretStateMachine.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\Humanoid\HumanoidGun.cs" Line="34" Column="37" />
-      <File FileName="Assets\Scripts\Turret\TurretNavigationMesh.cs" Line="49" Column="17" />
-      <File FileName="Assets\Scripts\Turret\TurretStateMachine.cs" Line="14" Column="51" />
-      <File FileName="Assets\Scripts\Enemies\SpawnTower.cs" Line="21" Column="3" />
-      <File FileName="Assets\Scripts\Items\RingManager.cs" Line="20" Column="10" />
-      <File FileName="Assets\Scripts\Items\ComputerManager.cs" Line="100" Column="47" />
-      <File FileName="Assets\Scripts\Level\Challenge4.cs" Line="73" Column="17" />
-      <File FileName="Assets\Scripts\Player\TankPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Menu\MenuParaTesteSomTEMPORARIO.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\WeaponPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Items\EnergyItem.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Turret\TurretManager.cs" Line="49" Column="37" />
-      <File FileName="Assets\Scripts\Level\Challenge3.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Turret\TurretTracer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Camera\SwitchCameras.cs" Line="229" Column="13" />
-      <File FileName="Assets\Scripts\Level\Challenge1.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Level\Challenge2.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Humanoid\HumanoidStateMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Turret\WaypointSystem.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerCombat.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Turret\TurretHealth.cs" Line="63" Column="42" />
-      <File FileName="Assets\Scripts\Humanoid\HumanoidManager.cs" Line="65" Column="33" />
-      <File FileName="Assets\Scripts\Humanoid\HumanoidHealth.cs" Line="65" Column="40" />
+      <File FileName="Assets\Scripts\Humanoid\HumanoidGun.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Turret\TurretGun.cs" Line="67" Column="167" />
+      <File FileName="Assets\Scripts\Humanoid\HumanoidStateMachine.cs" Line="130" Column="18" />
+      <File FileName="Assets\Scripts\Turret\TurretStateMachine.cs" Line="351" Column="23" />
+      <File FileName="Assets\Scripts\Turret\TurretManager.cs" Line="54" Column="38" />
+      <File FileName="Assets\Scripts\Enemies\RespawnTurret.cs" Line="10" Column="5" />
+      <File FileName="Assets\Scripts\Enemies\RagdollBehaviour.cs" Line="6" Column="2" />
+      <File FileName="Assets\Scripts\Items\SmokeTurretDeath.cs" Line="23" Column="43" />
+      <File FileName="Assets\Scripts\Turret\TurretHealth.cs" Line="38" Column="3" />
+      <File FileName="Assets\Scripts\Camera\SwitchCameras.cs" Line="21" Column="40" />
+      <File FileName="Assets\Scripts\Player\PlayerMovement.cs" Line="74" Column="37" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

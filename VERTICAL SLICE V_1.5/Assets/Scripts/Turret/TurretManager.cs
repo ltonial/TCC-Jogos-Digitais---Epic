@@ -16,6 +16,10 @@ public class TurretManager : MonoBehaviour
     /// Máquina de estados finita.
     /// </summary>
     private TurretStateMachine _fsm;
+    /// <summary>
+    /// The _smoke.
+    /// </summary>
+    private GameObject _smoke;
     #endregion
     #region Properties
     /// <summary>
@@ -46,7 +50,10 @@ public class TurretManager : MonoBehaviour
     {
         this._myTransform = transform;
         this._fsm = new TurretStateMachine(this._myTransform);
-        this._health = new TurretHealth(this._myTransform.FindChild("HealthText").GetComponent<TextMesh>());
+        //this._health = new TurretHealth(this._myTransform.FindChild("HealthText").GetComponent<TextMesh>());
+        this._health = new TurretHealth();
+
+        this._smoke = (GameObject)Resources.Load("Items/Smoke");
     }
     /// <summary>
     /// Atualizando o turret.
@@ -55,15 +62,24 @@ public class TurretManager : MonoBehaviour
     {
         if (!MenuPause.Paused)
         {
-            this._health.Update(this._fsm.CurrentState);
-            if (this._health.IsDead)
+            if (this._health != null && this._fsm != null)
             {
-                this._fsm.FreeComputerSpawn();
+                this._health.Update(this._fsm.CurrentState);
+                if (this._health.IsDead)
+                {
+                    this._fsm.FreeComputerSpawn();
 
-                this._fsm = null;
-                Destroy(gameObject);
+                    //Respawn
+                    GameObject.Instantiate(this._smoke, this._myTransform.position, Quaternion.identity);
+
+                    this._fsm = null;
+                    Destroy(gameObject, 15f);
+
+                    animation.wrapMode = WrapMode.ClampForever;
+                    animation.Play("TurretDeath");
+                }
+                if (this._fsm != null) this._fsm.Update(Time.deltaTime);
             }
-            if (this._fsm != null) this._fsm.Update(Time.deltaTime);
         }
     }
     /// <summary>

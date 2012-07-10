@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Camera\FadeCamera.cs" />
      <Compile Include="Assets\Scripts\Camera\SwitchCameras.cs" />
      <Compile Include="Assets\Scripts\Enemies\RagdollBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Enemies\RespawnTurret.cs" />
      <Compile Include="Assets\Scripts\Enemies\SpawnTower.cs" />
      <Compile Include="Assets\Scripts\Enumerations\BehaviourType.cs" />
      <Compile Include="Assets\Scripts\Enumerations\ComboType.cs" />
@@ -102,6 +103,7 @@
      <Compile Include="Assets\Scripts\Shots\BulletArrow.cs" />
      <Compile Include="Assets\Scripts\Shots\BulletGun.cs" />
      <Compile Include="Assets\Scripts\Shots\DecalManager.cs" />
+     <Compile Include="Assets\Scripts\Turret\TurretGun.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretHealth.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretManager.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretNavigationMesh.cs" />
