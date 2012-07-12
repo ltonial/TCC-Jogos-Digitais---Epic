@@ -63,7 +63,6 @@ public class TurretGun : MonoBehaviour {
         {
             if (this._isReadyToShot)
             {
-                Debug.Log("TIRO TURRET!");
                 GameObject bullet = (GameObject)GameObject.Instantiate(this._bulletGunObject, this._gunPointerTransform.position, this._gunPointerTransform.rotation);
                 this._shotsQuantity--;
                 this._canShot = this._shotsQuantity > 0;

@@ -36,9 +36,9 @@ public class CameraAction : MonoBehaviour
         this._xOffsetTarget = 0.5f;
         this._yOffsetTarget = 1f;
         this._walkDistance = 1f;
-        this._fightDistance = 3f;
+        this._fightDistance = 2f;
         this._walkHeight = 0.3f;
-        this._fightHeight = 2.5f;
+        this._fightHeight = 1.5f;
         this._xSpeedMouseMov = 250.0f;
         this._ySpeedMouseMov = 120.0f;
         this._heightDamping = 2.0f;

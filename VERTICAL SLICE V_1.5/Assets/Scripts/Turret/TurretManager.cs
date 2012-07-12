@@ -20,6 +20,7 @@ public class TurretManager : MonoBehaviour
     /// The _smoke.
     /// </summary>
     private GameObject _smoke;
+
     #endregion
     #region Properties
     /// <summary>

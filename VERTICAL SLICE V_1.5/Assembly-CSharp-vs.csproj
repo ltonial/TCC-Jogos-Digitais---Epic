@@ -116,6 +116,7 @@
      <None Include="Assets\Shaders\Alpha-Reflective-Glossy-Liquido-Garrafa.shader" />
      <None Include="Assets\Shaders\Transparent-RenderTExture.shader" />
      <None Include="Assets\Shaders\TwoColor.shader" />
+     <None Include="Assets\Standard Assets\Particles\Lightning Particles\readme.txt" />
      <None Include="Assets\Shaders\Alpha-Reflective-Glossy.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>

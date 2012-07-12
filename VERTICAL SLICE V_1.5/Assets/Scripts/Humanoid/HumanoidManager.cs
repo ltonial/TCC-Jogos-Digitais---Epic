@@ -84,6 +84,7 @@ public class HumanoidManager : MonoBehaviour
 				Instantiate (this._ragdoll, this._myTransform.position, this._myTransform.rotation);
 			
 				this._fsm = null;
+                PlayerCombat._humanoids.Remove(gameObject);
 				Destroy (gameObject);
 			}
 			if (this._fsm != null)

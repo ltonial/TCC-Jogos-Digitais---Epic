@@ -19,6 +19,7 @@ public class RespawnTurret : MonoBehaviour
 
     void Update ()
     {
+        Debug.Log("TURRET CRIADO");
         this._time += Time.deltaTime;
         if (this._time > 5f)
         {

@@ -11,6 +11,10 @@ public class SmokeTurretDeath : MonoBehaviour
     /// Prefab da munição.
     /// </summary>
     private GameObject _turretObject;
+    /// <summary>
+    /// Variável para acessar o scrip do PlayerCombat
+    /// </summary>
+    private PlayerCombat _scriptPlayerCombat;
 
     void Start()
 	{
