@@ -66,7 +66,7 @@ public class PlayerCombat : MonoBehaviour
                 _humanoids.Add(humanoid);
         }
 
-        StatePlayerType stateBeforeChecking = PlayerManager.CurrentStatePlayer;
+        StatePlayerType stateBeforeChecking = PlayerManager.CurrentStatePlayer;;
 
         foreach (GameObject humanoid in _humanoids)
         {
@@ -75,6 +75,8 @@ public class PlayerCombat : MonoBehaviour
                 float distance = Vector3.Distance(humanoid.transform.position, _player.transform.position);
                 if (distance < 3f)
                     PlayerManager.CurrentStatePlayer = StatePlayerType.FIGHT;
+                else if (PlayerManager.CurrentStatePlayer == StatePlayerType.FIGHT)
+                    PlayerManager.CurrentStatePlayer = StatePlayerType.WALK;
                 else
                     PlayerManager.CurrentStatePlayer = stateBeforeChecking;
             }
@@ -174,8 +176,12 @@ public class PlayerCombat : MonoBehaviour
                 {
                     if (combo == ComboType.PUNCH && !_player.animation.IsPlaying("gods_hand"))
                     {
-                        _player.animation.CrossFade("punch_on_the_ground");
-                        GameObject.Instantiate(this._particlePunchGround, _player.transform.position, Quaternion.identity);
+
+                        if (turret.gameObject.GetComponent<TurretManager>().Health.CurrentHealth > 0)
+                        {
+                            _player.animation.CrossFade("punch_on_the_ground");
+                            GameObject.Instantiate(this._particlePunchGround, _player.transform.position, Quaternion.identity);
+                        }
                         this._punchHitOnGround = true;
                         turret.gameObject.GetComponent<TurretManager>().Health.UpdateHealth(-1 * (int)ComboType.PUNCH);
 
