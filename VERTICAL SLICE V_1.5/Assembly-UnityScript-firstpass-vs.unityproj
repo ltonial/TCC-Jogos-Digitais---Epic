@@ -45,13 +45,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Standard Assets\Particles\Legacy Particles\TimedObjectDestructor.js" />
-     <Compile Include="Assets\Standard Assets\Particles\Lightning Particles\Scripts\MouseOrbit.js" />
      <None Include="Assets\Shaders\Alpha-Reflective-Glossy-Liquido-Bomba.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Shaders\Alpha-Reflective-Glossy-Liquido-Garrafa.shader" />
      <None Include="Assets\Shaders\Transparent-RenderTExture.shader" />
      <None Include="Assets\Shaders\TwoColor.shader" />
-     <None Include="Assets\Standard Assets\Particles\Lightning Particles\readme.txt" />
      <None Include="Assets\Shaders\Alpha-Reflective-Glossy.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
