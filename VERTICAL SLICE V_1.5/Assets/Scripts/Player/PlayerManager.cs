@@ -135,8 +135,15 @@ public class PlayerManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
         {
-            if (hit.transform.tag.Contains("Computer"))
+            Debug.Log(">>> "  + hit.transform.tag);
+            
+            if (hit.transform.tag.Contains("Computer") ||
+                hit.transform.name.Contains("Computer") ||
+                hit.transform.gameObject.name.Contains("Computer") ||
+                hit.transform.gameObject.tag.Contains("Computer"))
+            {
                 hit.transform.GetComponent<ComputerManager>().OnHackedBehaviour();
+            }
         }
     }
     #endregion

@@ -95,7 +95,10 @@ public class ComputerManager : MonoBehaviour
             this._wasHacked = true;
 
             if (gameObject.transform.tag == "ComputerTurnRing")
+            {
+                Debug.Log("ALELUIA");
                 this._challengeRing.ActiveRotate(this);
+            }
             else if (gameObject.transform.tag == "ComputerFinal")
                 this._challengeFinal.ActiveRotate(this);
 

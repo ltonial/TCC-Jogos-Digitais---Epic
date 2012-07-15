@@ -42,8 +42,6 @@ public class Challenge4 : MonoBehaviour
 
         this._challenge = GameObject.FindGameObjectWithTag(this.RingName);
 
-
-
         //GameObject[] aux = gameObject.transform.fi
     }
     void Update ()

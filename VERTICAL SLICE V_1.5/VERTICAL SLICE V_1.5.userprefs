@@ -1,10 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\MenuGui.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Level\LiftMovement.cs">
     <Files>
-      <File FileName="Assets\Scripts\Menu\MenuGui.cs" Line="132" Column="69" />
-      <File FileName="Assets\Scripts\Menu\Funcoes.cs" Line="22" Column="55" />
-      <File FileName="Assets\Scripts\Enumerations\ImagesType.cs" Line="8" Column="15" />
+      <File FileName="Assets\Scripts\Level\Challenge1.cs" Line="15" Column="82" />
+      <File FileName="Assets\Scripts\Level\Challenge2.cs" Line="15" Column="25" />
+      <File FileName="Assets\Scripts\Level\Challenge3.cs" Line="39" Column="11" />
+      <File FileName="Assets\Scripts\Level\Challenge4.cs" Line="38" Column="18" />
+      <File FileName="Assets\Scripts\Enemies\SpawnTower.cs" Line="29" Column="19" />
+      <File FileName="Assets\Scripts\Player\PlayerManager.cs" Line="139" Column="13" />
+      <File FileName="Assets\Scripts\Items\ComputerManager.cs" Line="100" Column="45" />
+      <File FileName="Assets\Scripts\Level\LiftMovement.cs" Line="12" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

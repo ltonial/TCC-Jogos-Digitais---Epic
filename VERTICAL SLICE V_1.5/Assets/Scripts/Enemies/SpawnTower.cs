@@ -14,10 +14,10 @@ public class SpawnTower : MonoBehaviour {
     {
         this._enemyObject = (GameObject)Resources.Load("Enemies/TowerFinal");
 
-        this._listaChallengeFinal.Add(GameObject.FindGameObjectWithTag("Anel1"));
-        this._listaChallengeFinal.Add(GameObject.FindGameObjectWithTag("Anel2"));
-        this._listaChallengeFinal.Add(GameObject.FindGameObjectWithTag("Anel3"));
-        //Debug.Log(this._listaChallengeFinal.Count);
+        this._listaChallengeFinal.Add(GameObject.Find("Disco_1"));
+        this._listaChallengeFinal.Add(GameObject.Find("Disco_2"));
+        this._listaChallengeFinal.Add(GameObject.Find("Disco_3"));
+        Debug.Log(this._listaChallengeFinal.Count);
 	}
 	void Update ()
     {
@@ -26,7 +26,7 @@ public class SpawnTower : MonoBehaviour {
             foreach (GameObject item in this._listaChallengeFinal)
             {
                 Vector3 world = transform.TransformPoint(transform.position);
-                Debug.Log(">> " + item.transform.tag + " :: " + world.y);
+                //Debug.Log(">> " + item.transform.tag + " :: " + world.y);
 
                 if (item.transform.position.y == 0)
                 {

@@ -42,6 +42,7 @@ public class Challenge3 : MonoBehaviour
         this._showCamera = true;
 
         this._challenge = GameObject.FindGameObjectWithTag("Challenge3");
+        //this._challenge = GameObject.Find("Anel_3");
 
         GameObject[] auxTerminals = GameObject.FindGameObjectsWithTag("ComputerTurnRing");
         foreach (GameObject item in auxTerminals)
