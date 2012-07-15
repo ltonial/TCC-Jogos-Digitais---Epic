@@ -16,7 +16,13 @@ public static class Funcoes {
     public static ImgManager[] VetImg {
         get {
             return new ImgManager[] {
-                new ImgManager("Menu/Iniciar",500,500)
+                null,
+                new ImgManager("Menu/Logo01",512,384),
+                new ImgManager("Menu/Logo02",512,384),
+                new ImgManager("Menu/Controls",800,600),
+                new ImgManager("Menu/Button",233,40),
+                new ImgManager("Menu/Item",800,600),
+                new ImgManager("Menu/CursorMao",32,32)
             };
         }
     }
@@ -65,6 +71,40 @@ public static class Funcoes {
         GL.Vertex3(x+w,y+Funcoes._raioCanto,0);
         GL.Vertex3(x+w,y+h-Funcoes._raioCanto,0);
         GL.Vertex3(x+w-Funcoes._raioCanto,y+h-Funcoes._raioCanto,0);
+        GL.End();
+    }
+    public static void DesenhaQuad(float x,float y,float w,float h,int lado) {
+        Funcoes.DesenhaArco(x+w-Funcoes._raioCanto,y+h-Funcoes._raioCanto,Funcoes._raioCanto,0,90,5,true); // direito inferior
+        Funcoes.DesenhaArco(x+Funcoes._raioCanto,y+h-Funcoes._raioCanto, Funcoes._raioCanto,90,180,5,true); // esquerdo inferior
+        Funcoes.DesenhaArco(x+Funcoes._raioCanto,y+Funcoes._raioCanto,Funcoes._raioCanto,180,270,5,true); // esquerdo superior
+        Funcoes.DesenhaArco(x+w-Funcoes._raioCanto,y+Funcoes._raioCanto,Funcoes._raioCanto,270,360,5,true); // direito superior
+        GL.Begin(GL.QUADS);
+    
+        if(lado==3) {
+          GL.Vertex3(x,y,0);
+          GL.Vertex3(x+w,y,0);
+          GL.Vertex3(x+w,y+h,0);
+          GL.Vertex3(x,y+h,0);
+        }else {
+          GL.Vertex3(x+Funcoes._raioCanto,y,0);
+          GL.Vertex3(x+w-Funcoes._raioCanto,y,0);
+          GL.Vertex3(x+w-Funcoes._raioCanto,y+h,0);
+          GL.Vertex3(x+Funcoes._raioCanto,y+h,0);
+        }
+        if(lado==0 || lado==1){
+          // entre cantos da esquerda
+          GL.Vertex3(x,y+Funcoes._raioCanto,0);
+          GL.Vertex3(x+Funcoes._raioCanto,y+Funcoes._raioCanto,0);
+          GL.Vertex3(x+Funcoes._raioCanto,y+h-Funcoes._raioCanto,0);
+          GL.Vertex3(x,y+h-Funcoes._raioCanto,0);
+        }
+        if(lado==0 || lado==2){
+          // entre cantos da direita
+          GL.Vertex3(x+w-Funcoes._raioCanto,y+Funcoes._raioCanto,0);
+          GL.Vertex3(x+w,y+Funcoes._raioCanto,0);
+          GL.Vertex3(x+w,y+h-Funcoes._raioCanto,0);
+          GL.Vertex3(x+w-Funcoes._raioCanto,y+h-Funcoes._raioCanto,0);
+        }
         GL.End();
     }
     public static void DesenhaQuad(float x,float y,float w,float h,int lado,Color cor1,Color cor2) {

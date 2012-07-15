@@ -2,7 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Menu\MenuGui.cs">
     <Files>
-      <File FileName="Assets\Scripts\Menu\MenuGui.cs" Line="29" Column="74" />
+      <File FileName="Assets\Scripts\Menu\MenuGui.cs" Line="132" Column="69" />
+      <File FileName="Assets\Scripts\Menu\Funcoes.cs" Line="22" Column="55" />
+      <File FileName="Assets\Scripts\Enumerations\ImagesType.cs" Line="8" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

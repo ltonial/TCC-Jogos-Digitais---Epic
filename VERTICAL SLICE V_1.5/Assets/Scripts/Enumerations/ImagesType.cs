@@ -1,6 +1,9 @@
 public enum ImagesType {
-    LOGO_MENU,
+    NADA,
+    LOGO_MENU_01,
+    LOGO_MENU_02,
     CONTROLS_MENU,
     BUTTON_MENU,
-    ITEN_MENU
+    ITEM_MENU,
+    CURSOR_MAO
 }

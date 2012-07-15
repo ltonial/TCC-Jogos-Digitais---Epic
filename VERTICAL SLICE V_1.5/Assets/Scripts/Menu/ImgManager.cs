@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ImgManager : MonoBehaviour {
+public class ImgManager {
 
     #region Attributes
     private Texture2D _tex;
