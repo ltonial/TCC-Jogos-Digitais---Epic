@@ -28,39 +28,49 @@ public class Challenge3 : MonoBehaviour
     /// The _list computer.
     /// </summary>
     private List<ComputerManager> _listComputer = new List<ComputerManager>();
+    /// <summary>
+    /// Bool para mostrar a câmera que gira o anel
+    /// </summary>
+    private bool _showCamera;
     #endregion
     #region Methods (Inherit)
-    void Start ()
+    void Start()
     {
         //this._activeRotate = true;
         this._velocityRotate = 10f;
         this._currentAngle = 0f;
+        this._showCamera = true;
 
         this._challenge = GameObject.FindGameObjectWithTag("Challenge3");
 
         GameObject[] auxTerminals = GameObject.FindGameObjectsWithTag("ComputerTurnRing");
-        foreach (GameObject item in auxTerminals) {
-            this._terminalList.Add (item.GetComponent<ComputerManager>());
+        foreach (GameObject item in auxTerminals)
+        {
+            this._terminalList.Add(item.GetComponent<ComputerManager>());
         }
     }
-    void Update ()
+    void Update()
     {
         if (!MenuPause.Paused)
         {
             //int computersHacked = this._terminalList.Count(t => t.WasHacked);
             //Debug.Log("HACKED: " + computersHacked);
             //if (computersHacked == COMPUTERS_NEED_HACK)
-                //this._activeRotate = true;
+            //this._activeRotate = true;
 
             if (this._activeRotate)
             {
                 this._challenge.transform.Rotate(Vector3.up * Time.deltaTime * _velocityRotate, Space.World);
                 this._currentAngle += Time.deltaTime * _velocityRotate;
-                //Debug.Log("CHALLENGE 3 FINISHED");
-               // SwitchCameras._activeCameraRing = true;
+                if (_showCamera)
+                {
+                    SwitchCameras._activeCameraRing = true;
+                    _showCamera = false;
+                }
 
                 if (this._currentAngle > MAXANGLE)
                 {
+                    Debug.Log("CHALLENGE 3 FINISHED");
                     this._currentAngle = 0f;
                     this._activeRotate = false;
                     this._listComputer.ForEach(c => c.OnUnhackedBehaviour());

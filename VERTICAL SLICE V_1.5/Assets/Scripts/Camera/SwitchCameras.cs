@@ -134,9 +134,9 @@ public class SwitchCameras : MonoBehaviour
                 _activeCameraStairsRight = true;
                 this._cameraStairsLeftStoppedGame = false;
                 EnabledDisableScripts();
-                
+
             }
-            _timeToShowCamera = TIMETOSHOWCAMERA;
+            _timeToShowCamera = 5f;
         }
 
     }
@@ -173,7 +173,7 @@ public class SwitchCameras : MonoBehaviour
                 this._cameraStairsRightStoppedGame = false;
                 EnabledDisableScripts();
             }
-            _timeToShowCamera = TIMETOSHOWCAMERA;
+            _timeToShowCamera = 5f;
         }
 
     }
@@ -209,9 +209,8 @@ public class SwitchCameras : MonoBehaviour
                 this._cameraRingStoppedGame = false;
                 EnabledDisableScripts();
             }
-            _timeToShowCamera = TIMETOSHOWCAMERA;
+            _timeToShowCamera = 5f;
         }
-
     }
 
     private void EnabledDisableScripts()
