@@ -89,6 +89,12 @@ public class PlayerManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Q)) this._tank.ChoiceSideEnergy = TankType.LIFE;
                 else if (Input.GetKeyDown(KeyCode.E)) this._tank.ChoiceSideEnergy = TankType.SHOT;
             }
+
+            if (this._tank.EnergyLife <= 0)
+            {
+                animation.CrossFade("death");
+                animation.wrapMode = WrapMode.ClampForever;
+            }
         }
     }
     void OnGUI()

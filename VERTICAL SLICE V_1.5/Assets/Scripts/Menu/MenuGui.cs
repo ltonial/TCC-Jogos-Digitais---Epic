@@ -42,7 +42,7 @@ public class MenuGui : MonoBehaviour {
         if(Input.GetMouseButtonDown(0)) {
             if(this._mouseItem == _itensGUI.ITENS) {
                 if(this._buttonControl==50) { //novo jogo
-                    Application.LoadLevel("Game");
+                    AutoFade.LoadLevel("Game", 2, 2, Color.black);
                 }else if(this._buttonControl==100) { //controles
                     this._telaControle = true;
                 }else if(this._buttonControl==150) { //creditos

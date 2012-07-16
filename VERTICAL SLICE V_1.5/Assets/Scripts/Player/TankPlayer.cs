@@ -73,6 +73,10 @@ public class TankPlayer
     /// Som quando tomar dano.
     /// </summary>
     private AudioClip _gotDamageSound;
+    /// <summary>
+    /// GameObject Player
+    /// </summary>
+    private GameObject _player;
     #endregion
     #region Constructors
     /// <summary>
@@ -146,6 +150,7 @@ public class TankPlayer
         this._sumpReloadSound = (AudioClip)Resources.Load ("Sounds/Player/SumpReload");
         this._gotDamageSound = (AudioClip)Resources.Load ("Sounds/Player/GotDamage");
         this._previousLife = this._currentEnergyLife;
+        this._player = GameObject.FindGameObjectWithTag("Player");
     }
     public void Update()
     {
@@ -205,6 +210,7 @@ public class TankPlayer
         }else if(this._previousLife != this._currentEnergyLife) {
             this._previousLife = this._currentEnergyLife;
             AudioSource.PlayClipAtPoint(this._gotDamageSound, Camera.main.transform.position,1f);
+            _player.gameObject.animation.CrossFade("damage");
         }
         this._tankEnergyLife.transform.localScale = new Vector3(1f,((float)this._currentEnergyLife/(float)MAXENERGYLIFE),1f);
         this._tankEnergyShot.transform.localScale = new Vector3(1f,((float)this._currentEnergyShot/(float)MAXENERGYSHOT),1f);

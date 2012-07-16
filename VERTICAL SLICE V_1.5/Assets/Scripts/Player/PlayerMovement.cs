@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// A altura alcançada no pulo
     /// </summary>
-    private float _jumpHeight = 0.8f;
+    private float _jumpHeight = 0.6f;
     /// <summary>
     /// Som do pulo.
     /// </summary>

@@ -71,6 +71,7 @@ public class SwitchCameras : MonoBehaviour
     {
         if (_activeCameraPit)
         {
+            _player.gameObject.guiTexture.enabled = true;
             if (!_cameraPitStoppedGame)
             {
                 EnabledDisableScripts();
@@ -98,7 +99,7 @@ public class SwitchCameras : MonoBehaviour
                 this._cameraPitStoppedGame = false;
                 EnabledDisableScripts();
             }
-            _timeToShowCamera = TIMETOSHOWCAMERA;
+            _timeToShowCamera = 15f;
         }
 
     }
@@ -131,7 +132,7 @@ public class SwitchCameras : MonoBehaviour
             {
                 this._cameraStairsLeft.camera.enabled = false;
                 //Debug.Log("Camera LEft");
-                _activeCameraStairsRight = true;
+                this.camera.enabled = true;
                 this._cameraStairsLeftStoppedGame = false;
                 EnabledDisableScripts();
 
@@ -208,6 +209,7 @@ public class SwitchCameras : MonoBehaviour
                 this.camera.enabled = true;
                 this._cameraRingStoppedGame = false;
                 EnabledDisableScripts();
+
             }
             _timeToShowCamera = 5f;
         }
@@ -215,6 +217,7 @@ public class SwitchCameras : MonoBehaviour
 
     private void EnabledDisableScripts()
     {
+
         gameObject.GetComponent<CameraAction>().enabled = !gameObject.GetComponent<CameraAction>().enabled;
         MonoBehaviour[] componentsPlayer = _player.GetComponents<MonoBehaviour>();
         foreach (MonoBehaviour component in componentsPlayer)

@@ -27,6 +27,9 @@ public class AimScript : MonoBehaviour
     }
     void OnGUI()
     {
+        if (SwitchCameras._activeCameraPit || SwitchCameras._activeCameraRing || SwitchCameras._activeCameraStairsLeft || SwitchCameras._activeCameraStairsRight)
+            Camera.main.SendMessage("ToggleAimButtonDown", false);
+
         if (PlayerManager.CurrentStatePlayer == StatePlayerType.AIM && !this._playerManager.Weapon.IsShot)
         {
             animation.CrossFade("aim");
